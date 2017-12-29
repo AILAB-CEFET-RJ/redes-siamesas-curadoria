@@ -49,25 +49,8 @@
         <?php if(isset($usuario)) : ?>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">            
-            <li class="<?php echo  $segmento == "clientes" ? "active" : "" ?>"><a href="<?php echo base_url('clientes');?>">Clientes</a></li>
-            <li class="<?php echo  $segmento == "fornecedores" ? "active" : "" ?>"><a href="<?php echo base_url('fornecedores');?>">Fornecedores</a></li>
-            <li class="<?php echo  $segmento == "motoristas" ? "active" : "" ?>"><a href="<?php echo base_url('motoristas');?>">Motoristas</a></li>
-            
-            <li class="dropdown <?php echo  $segmento == "veiculos" ? "active" : "" ?>">              
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Ve&iacute;culos <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                    <li class="dropdown-header"><strong>Cadastro</strong></li>
-                    <li><a href="<?php echo base_url('veiculos');?>">Viaturas</a></li>
-                    <li><a href="<?php echo base_url('setores');?>">Setores de Uso</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header"><strong>Manuten&ccedil;&atilde;o</strong></li>
-                    <li><a href="<?php echo base_url('abastecimentos');?>">Abastecimentos</a></li>
-                    <li><a href="<?php echo base_url('pecas');?>">Pe&ccedil;as</a></li>
-                    <li><a href="<?php echo base_url('servicos');?>">Servi&ccedil;os</a></li>
-                    <li class="divider"></li>
-                    <li><a href="<?php echo base_url('veiculos/imprimir_lista');?>">Imprimir Lista de Ve&iacute;culos</a></li>
-                </ul>
-            </li>            
+            <li class="<?php echo  $segmento == "annotations" ? "active" : "" ?>"><a href="<?php echo base_url('annotations');?>">Anotações</a></li>
+            <li class="<?php echo  $segmento == "synsets" ? "active" : "" ?>"><a href="<?php echo base_url('synsets');?>">Synsets</a></li>
           <?php if($usuario->admin == 1) { ?>
             <li class="<?php echo  $segmento == "usuarios" ? "active" : "" ?>"><a href="<?php echo base_url('usuarios');?>">Usu&aacute;rios</a></li>
           <?php } ?>            

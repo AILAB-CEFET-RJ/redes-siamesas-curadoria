@@ -88,7 +88,8 @@ class Usuarios extends CI_Controller {
 			$this->dados = array(
 					"nome" => $this->input->post("nome"),
 					"email" => $this->input->post("email"),
-					"senha" => $this->encrypt->encode($this->input->post("senha"))
+					"senha" => $this->encrypt->encode($this->input->post("senha")),
+					"admin" => 0
 			);	
 			
 			$this->load->database();					
