@@ -20,8 +20,7 @@ class Login extends CI_Controller {
 		
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('senha', 'senha', 'required|min_length[6]');
-		
-		
+						
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->load->view('topo');
@@ -29,13 +28,14 @@ class Login extends CI_Controller {
 			$this->load->view('rodape');
 		}
 		else
-		{						
+		{			
 			$email = $this->input->post("email");
 			$senha = $this->input->post("senha");
-								
-			if(iniciar_sessao($email, $senha)){
+			
+			
+			if(iniciar_sessao($email, $senha)){				
 				redirect("usuarios");
-			} else {
+			} else {				
 				$data["erro"] = "Usu&aacute;rio e/ou senha inv&aacute;lidos";	
 				$this->load->view('topo');
 				$this->load->view('login/formulario', $data);

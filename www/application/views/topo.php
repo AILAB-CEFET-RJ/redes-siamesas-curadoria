@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="<?php echo base_url('assets/img/truck.ico');?>">
+    <link rel="shortcut icon" href="<?php echo base_url('assets/img/icons/color_swatch.png');?>">
 	  <?php $segmento = strtolower($this->uri->segment(1)); ?>
-    <title>Controle de Frotas :: <?php echo $segmento?></title>
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/favicon.ico');?>" />
+    <title>Curadoria de Imagens :: <?php echo $segmento?></title>
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/icons/color_swatch.png');?>" />
 
     <link href="<?php echo base_url('assets/css/jquery-ui.min.css');?>" rel="stylesheet">
 
@@ -42,8 +42,8 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand site-id" href="<?php echo base_url();?>">
-            <img  class="site-logo" src="<?php echo base_url('assets/img/logo.png');?>" width="28" alt="logo invest" title="Invest" />
-            <span class="site-name">Controle de Frota</span>
+            <img  class="site-logo" src="<?php echo base_url('assets/img/icons/color_swatch.png');?>" width="28" alt="logo invest" title="Invest" />
+            <span class="site-name">Curadoria de Imagens</span>
           </a>
         </div>
         <?php if(isset($usuario)) : ?>

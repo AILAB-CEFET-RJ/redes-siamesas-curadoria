@@ -1,8 +1,8 @@
 <?php
 
-function iniciar_sessao($email, $senha){
+function iniciar_sessao($email, $senha){	
 	$ci = & get_instance();
-	$ci->load->database();
+	$ci->load->database();	
 	$ci->load->library('encrypt');	
 	
 	$ci->db->where(
