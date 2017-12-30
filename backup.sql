@@ -97,7 +97,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'Ramon Ferreira Silva','rsilva@ramonsilva.net','UCJUZgQ2UDBQZQt7','2017-12-29 13:35:04',0000000001),(3,'Adminstrador','admin@teste.com','UmZQYgAwCmoFNVNlCTdVaVRqCzs=',NULL,0000000000);
+INSERT INTO `usuario` VALUES (2,'Ramon Ferreira Silva','rsilva@ramonsilva.net','UCJUZgQ2UDBQZQt7','2017-12-29 13:35:04',0000000001),(3,'Adminstrador','admin@teste.com','UmZQYgAwCmoFNVNlCTdVaVRqCzs=',NULL,0000000001);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
