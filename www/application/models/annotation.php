@@ -10,6 +10,7 @@ class Annotation extends CI_Model {
 	var $is_valid;
 
 	var $b_box;
+	var $synset;
 
 	public function bound_box(){
 		if($this->b_box != null){
@@ -29,5 +30,23 @@ class Annotation extends CI_Model {
 		}	
 	}
 
+
+	public function synset(){
+		if($this->synset != null){
+			return $this->synset;
+		} else {
+			$this->load->model("synset");
+			if($this->wnid <> ""){	
+				$this->synset = $this->db->get_where("synset",array("wnid" => $this->wnid))->row(0, "synset");	
+
+				if(!empty($this->synset)){
+					return $this->synset;
+				}	
+			}
+		}
+
+		$this->synset = new Synset();
+		return $this->synset;
+	}
 }
 ?>

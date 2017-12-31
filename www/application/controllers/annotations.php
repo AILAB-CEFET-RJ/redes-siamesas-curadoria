@@ -86,7 +86,7 @@ class Annotations extends CI_Controller {
 		$this->load->view('rodape');
 	}
 
-	public function search_result(){
+	public function resultado_busca(){
 		$q = $_GET["q"];		
 				
 		if($q == "" || $q == null){
