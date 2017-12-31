@@ -50,7 +50,13 @@
               <?php echo trim($synset->words); ?>
           </td>
           <td>
-            <?php echo $synset->qtd_imagens(); ?>
+            <?php if($synset->qtd_imagens() > 0): ?>
+              <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($synset->wnid);?>">
+              <?php echo $synset->qtd_imagens(); ?>
+              </a>
+            <?php else: ?>
+              <?php echo $synset->qtd_imagens(); ?>
+            <?php endif; ?>
           </td>         
         </tr>            
         <?php endforeach; ?>   
