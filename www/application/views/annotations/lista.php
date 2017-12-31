@@ -16,6 +16,12 @@
 
 <br />
 
+<?php if(isset($q) && !empty($q)) : ?>
+<div class="row">
+     Foram encontrados <strong><?php echo $total_rows; ?></strong> resultado(s) encontrados para "<em><?php echo $q; ?></em>"
+</div>
+<?php endif; ?>
+
 <?php if(isset($erro) && !empty($erro)) : ?>
 <div class="row">
 	<div class="alert alert-danger text-center" role="alert"><?php echo $erro;?></div>
@@ -29,6 +35,7 @@
           <th>img_id</th>
           <th>wnid</th>
           <th>Atributos</th>
+          <th>Synset</th>
           <th></th>          
           <th></th>
         </tr>
@@ -47,9 +54,18 @@
           <td>              
               
               <?php if($annotation->attrs) : ?>
-                <?php echo trim($annotation->attrs); ?>
+                <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $annotation->attrs;?>">
+                  <?php echo trim($annotation->attrs); ?>
+                </a>
               <?php endif; ?>
-          </td>          
+          </td>
+          <td width="30%">
+            <?php if($annotation->Synset()->words != "") : ?>               
+              <?php echo $annotation->Synset()->words; ?>
+            <?php else: ?>
+              ---  
+            <?php endif; ?>
+          </td>        
           <td>
             <a href="<?php echo base_url("annotations/details") . "/" . $annotation->img_id;?>">
                  <img width="128"  src="<?php echo base_url('imagenet/' . $annotation->filename);?>" />

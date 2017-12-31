@@ -54,7 +54,7 @@ class Synsets extends CI_Controller {
 
 		$config['base_url'] = base_url('synsets/resultado_busca/' . $q);	
 		$config['total_rows'] = $total_rows;
-		
+		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config); 
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 

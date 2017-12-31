@@ -2,7 +2,7 @@
 	
 	
 	$config['per_page'] = 10; 
-	$config['uri_segment'] = 4;
+	$config['uri_segment'] = 3;
 	
 	
 	$config['full_tag_open'] = '<ul class="pagination">';

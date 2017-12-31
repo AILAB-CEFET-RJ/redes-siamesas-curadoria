@@ -21,6 +21,7 @@ class Annotations extends CI_Controller {
 		$config['base_url'] = base_url() . 'annotations/index';				
 		$config['total_rows'] = $this->db->count_all_results("annotation");		
 		
+	
 		$this->pagination->initialize($config); 
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
@@ -86,43 +87,47 @@ class Annotations extends CI_Controller {
 		$this->load->view('rodape');
 	}
 
-	public function resultado_busca(){
-		$q = $_GET["q"];		
+	public function resultado_busca($q = "", $pagina = 0){
+
+		$q = $q == "" ? $_GET["q"] : $q;		
 				
 		if($q == "" || $q == null){
 			redirect("annotations");
 		}
-							
-			
-		if(isset($_GET["pagina"]) && !empty($_GET["pagina"]))	{
-			$pagina = $_GET["pagina"];	
-		} else {
-			$pagina = 0;
-		}		
-		
+
 		$this->load->library('pagination');	
 		$this->load->database();	
 		$this->load->model("annotation");
 		
-		$this->db->like('nome', $q);		
-		$this->db->or_like('nome_fantasia', $q);		
-						
-		$config['base_url'] = base_url('annotations');	
-		$config['total_rows'] = $this->db->count_all_results("annotation");
+		$sql = "SELECT COUNT(*) AS `numrows` FROM (`annotation`) WHERE `is_valid` = ? AND (`wnid` LIKE ? OR `attrs` LIKE ?)";
+		
+		$resultado = $this->db->query($sql, array(1, "%".$q."%", "%".$q."%"));		
+		
+		$total_rows = $resultado->row()->numrows;		
+
+		$config['base_url'] = base_url('annotations/resultado_busca/' . $q);	
+		$config['total_rows'] = $total_rows;
+			$config['uri_segment'] = 4;
 		$this->pagination->initialize($config); 
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
+				
+		$sql = "SELECT * FROM (`annotation`) WHERE `is_valid` = ? AND (`wnid` LIKE ? OR `attrs` LIKE ?) LIMIT 10";
 		
-		$this->db->like('nome', $q);		
-		
-		$this->db->limit(10, $pagina * 10);
+		if($pagina > 0){
+			$sql = $sql . " OFFSET " . $pagina; 
+		}
 
-		$this->dados["annotations"] = $this->db->get("annotation")->result("annotation");
+		$this->dados["annotations"] = $this->db->query($sql, array(1, "%".$q."%", "%".$q."%"))->result("annotation");
+				
+
 		$this->dados["q"] = $q;
+		$this->dados["total_rows"] = $total_rows;
 		$this->load->view('topo', $this->dados);
 		$this->load->view('annotations/lista', $this->dados);
 		$this->load->view('rodape');
-		 
+
+		
 	}
 
 }
