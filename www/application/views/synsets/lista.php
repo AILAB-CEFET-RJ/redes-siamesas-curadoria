@@ -35,6 +35,7 @@
         <tr>
           <th>wnid</th>
           <th>Palavras-Chave</th>
+          <th>Quant. Imagens</th>
         </tr>
       </thead>
       <tbody>      	
@@ -47,6 +48,9 @@
           </td>  
            <td>
               <?php echo trim($synset->words); ?>
+          </td>
+          <td>
+            <?php echo $synset->qtd_imagens(); ?>
           </td>         
         </tr>            
         <?php endforeach; ?>   

@@ -50,7 +50,9 @@
           	</a>          		
           </td>  
            <td>
+            <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($annotation->wnid);?>">
               <?php echo trim($annotation->wnid); ?>
+            </a>
           </td>
           <td>      
               <?php if($annotation->attrs) : ?>
@@ -59,9 +61,9 @@
 
                 <?php foreach($attr as $k => $w): ?>                  
                     <?php if( (sizeof($attr) -1) > $k ): ?>
-                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>,&nbsp;
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>,&nbsp;
                     <?php else:?>
-                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>
                     <?php endif; ?> 
                 <?php endforeach; ?> 
                 
@@ -72,9 +74,9 @@
               <?php $words = explode(",", $annotation->Synset()->words); ?>
                 <?php foreach($words as $k => $w): ?>                  
                     <?php if( (sizeof($words) -1) > $k ): ?>
-                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>,&nbsp;
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>,&nbsp;
                     <?php else:?>
-                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>
                     <?php endif; ?> 
                 <?php endforeach; ?> 
             <?php else: ?>
