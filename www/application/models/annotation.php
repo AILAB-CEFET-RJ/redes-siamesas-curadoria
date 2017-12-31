@@ -8,6 +8,7 @@ class Annotation extends CI_Model {
 	var $attr;
 	var $md5;
 	var $is_valid;
+	var $dataset_source;
 
 	var $b_box;
 	var $synset;

@@ -99,9 +99,14 @@ class Annotations extends CI_Controller {
 		$this->load->database();	
 		$this->load->model("annotation");
 		
-		$sql = "SELECT COUNT(*) AS `numrows` FROM (`annotation`) WHERE `is_valid` = ? AND (`wnid` LIKE ? OR `attrs` LIKE ?)";
+		$sql = "SELECT COUNT(*) AS `numrows` 
+				FROM annotation as a
+				INNER JOIN synset as s
+				ON a.wnid = s.wnid
+				WHERE a.`is_valid` = ? 
+				AND (a.`wnid` LIKE ? OR a.`attrs` LIKE ? or s.`words` LIKE ?)";
 		
-		$resultado = $this->db->query($sql, array(1, "%".$q."%", "%".$q."%"));		
+		$resultado = $this->db->query($sql, array(1, "%".$q."%", "%".$q."%", "%".$q."%"));		
 		
 		$total_rows = $resultado->row()->numrows;		
 
@@ -112,13 +117,19 @@ class Annotations extends CI_Controller {
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
 				
-		$sql = "SELECT * FROM (`annotation`) WHERE `is_valid` = ? AND (`wnid` LIKE ? OR `attrs` LIKE ?) LIMIT 10";
+		$sql = "SELECT a.img_id, a.wnid, a.url, a.filename, a.attrs, a.md5, a.is_valid, a.dataset_source
+				FROM annotation as a
+				INNER JOIN synset as s
+				ON a.wnid = s.wnid
+				WHERE a.`is_valid` = ? 
+				AND (a.`wnid` LIKE ? OR a.`attrs` LIKE ? or s.`words` LIKE ?) 
+				LIMIT 10";
 		
 		if($pagina > 0){
 			$sql = $sql . " OFFSET " . $pagina; 
 		}
 
-		$this->dados["annotations"] = $this->db->query($sql, array(1, "%".$q."%", "%".$q."%"))->result("annotation");
+		$this->dados["annotations"] = $this->db->query($sql, array(1, "%".$q."%", "%".$q."%", "%".$q."%"))->result("annotation");
 				
 
 		$this->dados["q"] = $q;

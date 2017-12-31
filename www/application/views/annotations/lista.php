@@ -36,6 +36,7 @@
           <th>wnid</th>
           <th>Atributos</th>
           <th>Synset</th>
+          <th>Origem</th>
           <th></th>          
           <th></th>
         </tr>
@@ -51,21 +52,38 @@
            <td>
               <?php echo trim($annotation->wnid); ?>
           </td>
-          <td>              
-              
+          <td>      
               <?php if($annotation->attrs) : ?>
-                <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $annotation->attrs;?>">
-                  <?php echo trim($annotation->attrs); ?>
-                </a>
+                
+                <?php $attr = explode(",", $annotation->attrs); ?>
+
+                <?php foreach($attr as $k => $w): ?>                  
+                    <?php if( (sizeof($attr) -1) > $k ): ?>
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>,&nbsp;
+                    <?php else:?>
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>
+                    <?php endif; ?> 
+                <?php endforeach; ?> 
+                
               <?php endif; ?>
           </td>
           <td width="30%">
             <?php if($annotation->Synset()->words != "") : ?>               
-              <?php echo $annotation->Synset()->words; ?>
+              <?php $words = explode(",", $annotation->Synset()->words); ?>
+                <?php foreach($words as $k => $w): ?>                  
+                    <?php if( (sizeof($words) -1) > $k ): ?>
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>,&nbsp;
+                    <?php else:?>
+                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . $w;?>"><?=$w?></a>
+                    <?php endif; ?> 
+                <?php endforeach; ?> 
             <?php else: ?>
               ---  
             <?php endif; ?>
-          </td>        
+          </td>
+           <td>
+              <?php echo trim($annotation->dataset_source); ?>
+          </td>
           <td>
             <a href="<?php echo base_url("annotations/details") . "/" . $annotation->img_id;?>">
                  <img width="128"  src="<?php echo base_url('imagenet/' . $annotation->filename);?>" />
