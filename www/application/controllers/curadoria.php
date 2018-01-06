@@ -15,11 +15,25 @@ class Curadoria extends CI_Controller {
 	{
 		$this->load->database();
 		$this->load->model("img_match");
-		$this->db->where('curation', 0);
-		$this->db->limit(1);
-		$this->dados['img_match'] = $this->db->get('img_match')->result('img_match');
+		if($imgMatch = $this->img_match->get_register_for_curation())
+		{
+			//$config['base_url'] = base_url() . 'curadoria/index';
+			$this->load->model("annotation");
+			$annotationVqa = $this->db->get_where("annotation", array("img_id" => $imgMatch->vqa_img_id))->row(0, "annotation");
+			$this->dados['annotationVqa'] = $annotationVqa;
+			$this->dados['annotationImagenet'] = $this->db->get_where("annotation", array("img_id" => $imgMatch->imagenet_img_id))->row(0, "annotation");
 
-		$strView = $this->dados['img_match'] == NULL ? 'curadoria/empty' : 'curadoria/registrar';
+			$this->load->model("question");
+
+			// admitindo que se o atributo curation de img_match ainda é zero, então ainda existem perguntas		
+			$this->dados['question'] = $this->db->get_where('question', array('img_id' => $annotationVqa->img_id, 'curation' => 0), 1)->row(0, "question");
+
+			$strView = 'curadoria/registrar';
+		}
+		else
+		{
+			$strView = 'curadoria/empty';
+		}
 
 		$this->load->view('topo', $this->dados);
 		$this->load->view($strView, $this->dados);

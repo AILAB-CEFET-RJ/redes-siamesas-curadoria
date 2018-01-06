@@ -5,7 +5,18 @@ class Img_match extends CI_Model {
 	var $imagenet_img_id;
 	var $curation;
 
-	var $annotation_vqa;
+	public function get_register_for_curation(){
+		$this->load->database();
+		$query = $this->db->query('SELECT * FROM img_match WHERE curation = 0 LIMIT 1');
+		
+		if($query->num_rows() == 0){
+			return false;
+		}
+		
+		return $query->row();
+	}
+
+	/*var $annotation_vqa;
 	var $annotation_imagenet;
 
 	public function annotation_vqa(){
@@ -43,6 +54,6 @@ class Img_match extends CI_Model {
 
 		$this->annotation_imagenet = new Annotation();
 		return $this->annotation_imagenet;
-	}
+	}*/
 }
 ?>
