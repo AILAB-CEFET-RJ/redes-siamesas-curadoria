@@ -1,3 +1,5 @@
 data/
-www/imagenet/
+www/dataset/
 www/application/logs/
+www/neural-network/holydays/
+.DS_Store

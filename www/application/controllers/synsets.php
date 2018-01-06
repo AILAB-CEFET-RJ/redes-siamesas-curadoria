@@ -15,8 +15,7 @@ class Synsets extends CI_Controller {
 		$this->load->library('pagination');		
 		$this->load->database();
 		$this->load->model("synset");
-		
-		
+				
 		$config['base_url'] = base_url() . 'synsets/index';				
 		$config['total_rows'] = $this->db->count_all_results("synset");		
 		
@@ -34,22 +33,21 @@ class Synsets extends CI_Controller {
 		$this->load->view('rodape');
 	}
 
-	public function resultado_busca($q = "", $pagina = 0){
+	public function resultado_busca($q = "", $pagina = 0, $nz = ""){
 
 		$q = $q == "" ? $_GET["q"] : $q;		
-				
+		
 		if($q == "" || $q == null){
 			redirect("synsets");
 		}
-
 
 		$this->load->library('pagination');	
 		$this->load->database();	
 		$this->load->model("synset");
 		
-		$this->db->like('wnid', $q);		
+		$this->db->like('synset.wnid', $q);		
 		$this->db->or_like('words', $q);		
-		
+
 		$total_rows = $this->db->count_all_results("synset");
 
 		$config['base_url'] = base_url('synsets/resultado_busca/' . $q);	
@@ -58,17 +56,16 @@ class Synsets extends CI_Controller {
 		$this->pagination->initialize($config); 
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
-		
 
-		$this->db->like('wnid', $q);		
+		$this->db->like('synset.wnid', $q);		
 		$this->db->or_like('words', $q);	
-		
+				
 		$this->db->limit(10, $pagina);
 		
 
 		$this->dados["synsets"] = $this->db->get("synset")->result("synset");
 		
-		//echo $this->db->last_query();
+		echo $this->db->last_query();
 		
 		$this->dados["q"] = $q;
 		$this->dados["total_rows"] = $total_rows;
@@ -76,7 +73,6 @@ class Synsets extends CI_Controller {
 		$this->load->view('synsets/lista', $this->dados);
 		$this->load->view('rodape');
 
-		
 	}
 
 }

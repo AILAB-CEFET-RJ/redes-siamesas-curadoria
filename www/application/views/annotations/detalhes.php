@@ -34,6 +34,11 @@
 	    <span><?=$annotation->attrs?></span>
 	  </div> 
 
+	  <div class="form-group">
+	    <label for="nome">Datase de Origem :</label>
+	    <span><?=$annotation->dataset_source?></span>
+	  </div> 
+
       <div class="form-group" style="width:40%">
 	    <label for="nome">Caixas Delimitadoras (Bounding Boxes)</label>
 	    
@@ -62,7 +67,7 @@
 
 
       <div class="form-group">	    
-      <img src="<?php echo base_url('imagenet/' . $annotation->filename);?>"
+      <img src="<?php echo base_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>"
 	  </div> 
 </div>
 <hr />

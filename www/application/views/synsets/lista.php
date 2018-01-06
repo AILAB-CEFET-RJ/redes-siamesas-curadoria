@@ -10,7 +10,11 @@
 	  <div class="form-group">	   
 	    <input type="search" class="form-control campo-busca" id="q" value="<?=$q?>" placeholder="digite uma palavra-chave ou wnid" name="q">	  	
 	  </div>
-	  <button type="submit" class="btn btn-default button-pesquisar">Pesquisar</button>    
+	  <button type="submit" class="btn btn-default button-pesquisar">Pesquisar</button> 
+    <br />
+    <div class="form-group">     
+      <input type="checkbox" class="form-control" id="nz" name="nz">  Não zerados  
+    </div> 
 	<?=form_close();?>
 
 </div>
