@@ -12,6 +12,7 @@ class Annotation extends CI_Model {
 
 	var $b_box;
 	var $synset;
+	var $img_match;
 
 	public function bound_box(){
 		if($this->b_box != null){
@@ -39,6 +40,30 @@ class Annotation extends CI_Model {
 			$this->load->model("synset");
 			if($this->wnid <> ""){	
 				$this->synset = $this->db->get_where("synset",array("wnid" => $this->wnid))->row(0, "synset");	
+
+				if(!empty($this->synset)){
+					return $this->synset;
+				}	
+			}
+		}
+
+		$this->synset = new Synset();
+		return $this->synset;
+	}
+
+
+	public function image_match(){
+		if($this->img_match != null){
+			return $this->img_match;
+		} else {
+			$this->load->model("imagematch");
+			if($this->wnid <> ""){	
+
+				if($this->dataset_source == "imagenet"){
+					$this->synset = $this->db->get_where("img_match", array("imagenet_img_id" => $this->img_id))->result(0, "imagematch");	
+				} else {
+					$this->synset = $this->db->get_where("img_match",array("vqa_img_id" => $this->img_id))->result(0, "imagematch");	
+				}
 
 				if(!empty($this->synset)){
 					return $this->synset;

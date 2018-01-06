@@ -1,7 +1,7 @@
 <?php
 
-function get_image_size($filename){
-    return getimagesize("imagenet/" . $filename);
+function get_image_size($filename, $source){
+    return getimagesize("dataset/" . $source . "/" . $filename);
 }
 
 function get_bbox_coordinates($bbox, $image_size){

@@ -50,7 +50,7 @@ class Annotations extends CI_Controller {
 		}	
 			
 		$this->dados["annotation"] = $annotation;
-		$this->dados["image_size"] = get_image_size($annotation->filename);
+		$this->dados["image_size"] = get_image_size($annotation->filename, $annotation->dataset_source);
 		$this->dados["bound_box"] = get_bbox_coordinates($annotation->bound_box(), $this->dados["image_size"]);
 
 		$this->load->view('topo', $this->dados);
