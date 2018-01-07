@@ -12,25 +12,63 @@ class Synsets extends CI_Controller {
 	
 	public function index($pagina = 0)
 	{
-		$this->load->library('pagination');		
+		$this->load->library('pagination');
+		$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));		
 		$this->load->database();
 		$this->load->model("synset");
-				
-		$config['base_url'] = base_url() . 'synsets/index';				
-		$config['total_rows'] = $this->db->count_all_results("synset");		
+					
+		$config['base_url'] = base_url() . 'synsets/index';	
+						
+		$sql = "SELECT count(1) as numrows FROM (SELECT 
+					count(img_id) as qtde
+				FROM 
+					synset 
+				LEFT JOIN 
+					annotation 
+				ON 
+					`synset`.`wnid` = `annotation`.`wnid` 
+				GROUP BY 
+					synset.wnid 
+				HAVING 
+					qtde > 0) as count_synset_images";
+
+		$resultado = $this->db->query($sql, array());
+		$total_rows = $resultado->row()->numrows;	
 		
+		$config['total_rows'] = $total_rows;
+		$this->dados['total_rows'] = $total_rows;
+
 		$this->pagination->initialize($config); 
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
 				
-		$this->db->limit(10, $pagina);
-		$this->dados["synsets"] = $this->db->get("synset")->result("synset");
+		$sql = "SELECT 
+					synset.*, count(img_id) as qtde 
+				FROM 
+					synset 
+				LEFT JOIN 
+					annotation 
+				ON 
+					`synset`.`wnid` = `annotation`.`wnid` 
+				GROUP BY 
+					synset.wnid 
+				HAVING 
+					qtde > 0 
+				LIMIT 
+					10";
+
+		if($pagina > 0){
+			$sql = $sql . " OFFSET " . $pagina; 
+		}
+		
+		$this->dados["synsets"] = $this->db->query($sql, array())->result("synset");
 		
 		$this->dados["q"] = "";
 		
 		$this->load->view('topo', $this->dados);
 		$this->load->view('synsets/lista', $this->dados);
 		$this->load->view('rodape');
+		
 	}
 
 	public function resultado_busca($q = "", $pagina = 0, $nz = ""){
@@ -64,9 +102,7 @@ class Synsets extends CI_Controller {
 		
 
 		$this->dados["synsets"] = $this->db->get("synset")->result("synset");
-		
-		echo $this->db->last_query();
-		
+						
 		$this->dados["q"] = $q;
 		$this->dados["total_rows"] = $total_rows;
 		$this->load->view('topo', $this->dados);
@@ -74,6 +110,16 @@ class Synsets extends CI_Controller {
 		$this->load->view('rodape');
 
 	}
+
+
+	public function detalhes(){
+		$this->load->database();
+		$this->load->model("synset");
+
+		$this->load->view('topo', $this->dados);
+		$this->load->view('synsets/detalhes', $this->dados);
+		$this->load->view('rodape');	
+	}	
 
 }
 

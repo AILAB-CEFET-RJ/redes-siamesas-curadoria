@@ -12,14 +12,18 @@
 	  </div>
 	  <button type="submit" class="btn btn-default button-pesquisar">Pesquisar</button> 
     <br />
-    <div class="form-group">     
-      <input type="checkbox" class="form-control" id="nz" name="nz">  Não zerados  
-    </div> 
 	<?=form_close();?>
 
 </div>
 
 <br />
+
+<?php if(isset($total_rows) && (!isset($q) || empty($q))) : ?>
+<div class="row">
+     Foram encontrados <strong><?php echo $total_rows; ?></strong> synstes com imagens associadas.
+</div>
+<?php endif; ?>
+
 
 <?php if(isset($q) && !empty($q)) : ?>
 <div class="row">
@@ -46,7 +50,7 @@
       	<?php foreach($synsets as $synset): ?>
         <tr>          
           <td>
-          	<a href="<?php echo base_url("synsets/details") . "/" . $synset->wnid;?>">
+          	<a href="<?php echo base_url("synsets/detalhes") . "/" . $synset->wnid;?>">
           		<?php echo trim($synset->wnid); ?>
           	</a>          		
           </td>  

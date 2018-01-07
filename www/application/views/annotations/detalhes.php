@@ -7,19 +7,8 @@
 </div>
 
 
-<?php if(validation_errors() || isset($erro)) : ?>
 <div class='row'>
-	<div class="alert alert-danger">
-		<?php echo validation_errors(); ?>
-		<?php if(isset($erro)) : ?>
-		<?php echo $erro; ?>
-		<?php endif; ?>
-	</div>
-</div>
-<?php endif; ?>
-
-<div class='row'>
-	<h2>Detalhes da Imagem</h2>
+	<h2>Detalhes da Imagem [<?=$annotation->dataset_source?>]</h2>
 	<hr />
 	<div class="form-group">
 	    <label for="nome">IMG_ID:</label>
