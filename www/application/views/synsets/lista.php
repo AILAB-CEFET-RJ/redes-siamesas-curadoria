@@ -43,7 +43,6 @@
         <tr>
           <th>wnid</th>
           <th>Palavras-Chave</th>
-          <th>Quant. Imagens</th>
         </tr>
       </thead>
       <tbody>      	
@@ -56,16 +55,7 @@
           </td>  
            <td>
               <?php echo trim($synset->words); ?>
-          </td>
-          <td>
-            <?php if($synset->qtd_imagens() > 0): ?>
-              <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($synset->wnid);?>">
-              <?php echo $synset->qtd_imagens(); ?>
-              </a>
-            <?php else: ?>
-              <?php echo $synset->qtd_imagens(); ?>
-            <?php endif; ?>
-          </td>         
+          </td>     
         </tr>            
         <?php endforeach; ?>   
       </tbody>

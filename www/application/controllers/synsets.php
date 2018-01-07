@@ -112,14 +112,44 @@ class Synsets extends CI_Controller {
 	}
 
 
-	public function detalhes(){
+	public function detalhes($id){
 		$this->load->database();
 		$this->load->model("synset");
 
-		$this->load->view('topo', $this->dados);
-		$this->load->view('synsets/detalhes', $this->dados);
-		$this->load->view('rodape');	
+
+		$synset = $this->db->get_where("synset", array("wnid" => $id))->row(0, "synset");
+		
+		if(!$synset){						
+			show_404("synset/detalhes");			
+		} else {
+			
+			$this->dados["synset"] = $synset;
+			$this->_loadImages($synset->wnid);
+					
+			$this->load->view('topo', $this->dados);
+			$this->load->view('synsets/detalhes', $this->dados);
+			$this->load->view('rodape');	
+		}
 	}	
+
+
+	function _loadImages($wnid){
+		$this->load->model("annotation");
+		$this->load->helper("image");
+
+		$this->db->where('is_valid', 1);
+		$this->db->where('wnid', $wnid);
+
+		$this->db->limit(10, 0);
+		$this->dados["annotations"] = $this->db->get("annotation")->result("annotation");
+
+
+		$this->db->where('is_valid', 1);
+		$this->db->where('wnid', $wnid);
+		$this->db->from('annotation');
+		$this->dados["qtde_imagens"] = $this->db->count_all_results();
+	
+	}
 
 }
 
