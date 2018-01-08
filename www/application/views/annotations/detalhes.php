@@ -24,8 +24,13 @@
 	  </div> 
 
 	  <div class="form-group">
-	    <label for="nome">Datase de Origem :</label>
+	    <label for="nome">Dataset de Origem :</label>
 	    <span><?=$annotation->dataset_source?></span>
+	  </div> 
+
+	  <div class="form-group">
+	    <label for="nome">MD5 :</label>
+	    <span><?=$annotation->md5?></span>
 	  </div> 
 
       <div class="form-group" style="width:40%">
