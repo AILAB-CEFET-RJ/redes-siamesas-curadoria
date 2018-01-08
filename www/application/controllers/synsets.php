@@ -18,22 +18,18 @@ class Synsets extends CI_Controller {
 		$this->load->model("synset");
 					
 		$config['base_url'] = base_url() . 'synsets/index';	
-						
-		$sql = "SELECT count(1) as numrows FROM (SELECT 
-					count(img_id) as qtde
-				FROM 
-					synset 
-				LEFT JOIN 
-					annotation 
-				ON 
-					`synset`.`wnid` = `annotation`.`wnid` 
-				GROUP BY 
-					synset.wnid 
-				HAVING 
-					qtde > 0) as count_synset_images";
+		
+		$sql = "select 
+				count(synset.wnid) as qtde
+			from 
+				annotation
+			left join
+				synset
+			on 
+				annotation.wnid = synset.wnid";
 
 		$resultado = $this->db->query($sql, array());
-		$total_rows = $resultado->row()->numrows;	
+		$total_rows = $resultado->row()->qtde;	
 		
 		$config['total_rows'] = $total_rows;
 		$this->dados['total_rows'] = $total_rows;
@@ -42,20 +38,17 @@ class Synsets extends CI_Controller {
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
 				
-		$sql = "SELECT 
-					synset.*, count(img_id) as qtde 
-				FROM 
-					synset 
-				LEFT JOIN 
-					annotation 
-				ON 
-					`synset`.`wnid` = `annotation`.`wnid` 
-				GROUP BY 
-					synset.wnid 
-				HAVING 
-					qtde > 0 
-				LIMIT 
-					10";
+		$sql = "select 
+					count(synset.wnid) as qtde, synset.*
+				from 
+					annotation
+				left join
+					synset
+				on 
+					annotation.wnid = synset.wnid
+				group by
+					synset.wnid
+				limit 10";
 
 		if($pagina > 0){
 			$sql = $sql . " OFFSET " . $pagina; 

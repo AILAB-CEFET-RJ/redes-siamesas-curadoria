@@ -43,6 +43,7 @@
         <tr>
           <th>wnid</th>
           <th>Palavras-Chave</th>
+          <th>Quantidade de Imagens</th>
         </tr>
       </thead>
       <tbody>      	
@@ -55,6 +56,11 @@
           </td>  
            <td>
               <?php echo trim($synset->words); ?>
+          </td> 
+           <td class="text-center">
+           <a href="<?php echo base_url("synsets/detalhes") . "/" . $synset->wnid;?>">
+          		<?php echo trim($synset->qtde); ?>
+          	</a>             
           </td>     
         </tr>            
         <?php endforeach; ?>   
