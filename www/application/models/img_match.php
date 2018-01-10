@@ -7,7 +7,7 @@ class Img_match extends CI_Model {
 
 	public function get_register_for_curation(){
 		$this->load->database();
-		$query = $this->db->query('SELECT * FROM img_match WHERE curation = 0 LIMIT 1');
+		$query = $this->db->query('SELECT * FROM img_match WHERE curation = 0 ORDER BY RAND() LIMIT 1');
 		
 		if($query->num_rows() == 0){
 			return false;
@@ -15,6 +15,12 @@ class Img_match extends CI_Model {
 		
 		return $query->row();
 	}
+
+
+	public function conclude($vqa_img_id, $imagenet_img_id){
+		$this->load->database();
+		$query = $this->db->query("UPDATE img_match SET curation = 1 WHERE vqa_img_id = '$vqa_img_id' AND imagenet_img_id = '$imagenet_img_id' ");		
+	}	
 
 	/*var $annotation_vqa;
 	var $annotation_imagenet;
