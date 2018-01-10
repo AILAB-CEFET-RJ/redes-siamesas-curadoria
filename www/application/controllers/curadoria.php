@@ -17,16 +17,15 @@ class Curadoria extends CI_Controller {
 		$this->load->model("img_match");
 		if($imgMatch = $this->img_match->get_register_for_curation())
 		{
-			//$config['base_url'] = base_url() . 'curadoria/index';
 			$this->load->model("annotation");
 			$annotationVqa = $this->db->get_where("annotation", array("img_id" => $imgMatch->vqa_img_id))->row(0, "annotation");
-			$this->dados['annotationVqa'] = $annotationVqa;
-			$this->dados['annotationImagenet'] = $this->db->get_where("annotation", array("img_id" => $imgMatch->imagenet_img_id))->row(0, "annotation");
-
+			$annotationImagenet = $this->db->get_where("annotation", array("img_id" => $imgMatch->imagenet_img_id))->row(0, "annotation");
+			// admitindo que se o atributo curation de img_match ainda é 0, então ainda existem perguntas
 			$this->load->model("question");
 
-			// admitindo que se o atributo curation de img_match ainda é zero, então ainda existem perguntas		
-			$this->dados['question'] = $this->db->get_where('question', array('img_id' => $annotationVqa->img_id, 'curation' => 0), 1)->row(0, "question");
+			$this->dados["question"] = $this->question->get_question_for_curation($annotationVqa->img_id, $annotationImagenet->img_id);
+			$this->dados['annotationVqa'] = $annotationVqa;
+			$this->dados['annotationImagenet'] = $annotationImagenet;
 
 			$strView = 'curadoria/registrar';
 		}
@@ -38,42 +37,130 @@ class Curadoria extends CI_Controller {
 		$this->load->view('topo', $this->dados);
 		$this->load->view($strView, $this->dados);
 		$this->load->view('rodape');
-
-		/*$this->load->library('pagination');		
-		$this->load->database();
-		$this->load->model("annotation");
-		
-		$this->db->where('is_valid', 1);
-
-		$config['base_url'] = base_url() . 'annotations/index';				
-		$config['total_rows'] = $this->db->count_all_results("annotation");		
-		
-	
-		$this->pagination->initialize($config); 
-		
-		$this->dados["paginacao"] = $this->pagination->create_links(); 
-		
-		$this->db->where('is_valid', 1);
-		$this->db->limit(10, $pagina);
-		$this->dados["annotations"] = $this->db->get("annotation")->result("annotation");
-		
-		$this->dados["q"] = "";
-				
-		$this->load->view('topo', $this->dados);
-		$this->load->view('curadoria/empty', $this->dados);
-		$this->load->view('rodape');
-		*/
 	}
 
-	public function teste(){
-		echo "entrei no metodo teste do controller curadoria ";
-		//imprime o parametro passado na url
-		//localhost/curadoria/teste/xxx
-		//segment(x) onde x é o indice na url
-		// segment(1) == curadoria (controller)
-		// segment(2) == teste (metodo)
-		// segment(3) == xxx (parametro)
-		echo $this->uri->segment(3);
+	public function change_question($annotationVqaId, $annotationImagenetId, $oldQuestionId)
+	{
+		$this->load->database();
+		$this->load->model("question");
+		if($newQuestion = $this->question->get_new_question($annotationVqaId, $annotationImagenetId, $oldQuestionId)){
+			$this->dados["question"] = $newQuestion;
+			$this->load->model("annotation");
+			$this->dados["annotationVqa"] = $this->db->get_where("annotation", array("img_id" => $annotationVqaId))->row(0, "annotation");
+			$this->dados["annotationImagenet"] = $this->db->get_where("annotation", array("img_id" => $annotationImagenetId))->row(0, "annotation");
+
+			$strView = 'curadoria/registrar';
+		}
+		else{
+			$strView = 'curadoria/empty_question';
+		}
+
+		$this->load->view('topo', $this->dados);
+		$this->load->view($strView, $this->dados);
+		$this->load->view('rodape');
+	}
+
+	public function register_match_question()
+	{
+		$this->load->helper(array('form', 'url'));
+
+		// captura variaveis POST
+		$vqa_img_id = $this->input->post("annotation_vqa_id");
+		$imagenet_img_id = $this->input->post("annotation_imagenet_id");
+		$question_id = $this->input->post("question_id");
+
+		// recuperar questao do banco
+		$this->load->database();
+		$this->load->model("question");
+		$question = $this->db->get_where("question", array("id" => $question_id))->row(0, "question");
+
+		// inicia a transação
+		$this->db->trans_start();
+
+		// inserir uma copia da questao para a imagem candidata usando a resposta do usuário
+		$answer = $this->input->post("imagenet_answer") == 'Sim' ? 'sim' : 'nao';
+		$this->dados = array(
+			"img_id" => $imagenet_img_id,
+			"statement" => $question->statement,
+			"answer" => $answer
+		);
+		$this->db->insert('question', $this->dados);
+
+		// inserir registro em question_curation para a tripla (question_id, vqa_img_id, imagenet_img_id)
+		$this->load->model("question_curation");
+		$this->dados = array(
+			"vqa_img_id" => $vqa_img_id,
+			"imagenet_img_id" => $imagenet_img_id,
+			"question_id" => $question_id
+		);
+		$this->db->insert('question_curation', $this->dados);
+
+		// verificar se ainda existe questão para o par (vqa_img_id, imagenet_img_id)
+			// se não houver, update curation = true em img_match para o par (vqa_img_id, imagenet_img_id)
+		if(!$newQuestion = $this->question->get_question_for_curation($vqa_img_id, $imagenet_img_id)){
+			$this->load->model("img_match");
+			$this->img_match->conclude($vqa_img_id, $imagenet_img_id);
+		}
+
+		$this->db->trans_complete();
+
+		$this->load->view('topo', $this->dados);
+
+		$this->load->view($this->db->trans_status() === FALSE ? 'curadoria/fail' : 'curadoria/sucesso');
+		
+		$this->load->view('rodape');
+	}
+
+
+	public function register_no_match_question()
+	{
+		$this->load->helper(array('form', 'url'));
+
+		// captura variaveis POST
+		$vqa_img_id = $this->input->post("annotation_vqa_id");
+		$imagenet_img_id = $this->input->post("annotation_imagenet_id");
+		$question_id = $this->input->post("question_id");
+
+		// recuperar questao do banco
+		$this->load->database();
+		$this->load->model("question");
+		$question = $this->db->get_where("question", array("id" => $question_id))->row(0, "question");
+
+		// inicia a transação
+		$this->db->trans_start();
+
+		// inserir uma copia da questao para a imagem candidata usando a resposta do usuário
+		/*$answer = $this->input->post("imagenet_answer") == 'Sim' ? 'sim' : 'nao';
+		$this->dados = array(
+			"img_id" => $imagenet_img_id,
+			"statement" => $question->statement,
+			"answer" => $answer
+		);
+		$this->db->insert('question', $this->dados);*/
+
+		// inserir registro em question_curation para a tripla (question_id, vqa_img_id, imagenet_img_id)
+		$this->load->model("question_curation");
+		$this->dados = array(
+			"vqa_img_id" => $vqa_img_id,
+			"imagenet_img_id" => $imagenet_img_id,
+			"question_id" => $question_id
+		);
+		$this->db->insert('question_curation', $this->dados);
+
+		// verificar se ainda existe questão para o par (vqa_img_id, imagenet_img_id)
+			// se não houver, update curation = true em img_match para o par (vqa_img_id, imagenet_img_id)
+		if(!$newQuestion = $this->question->get_question_for_curation($vqa_img_id, $imagenet_img_id)){
+			$this->load->model("img_match");
+			$this->img_match->conclude($vqa_img_id, $imagenet_img_id);
+		}
+
+		$this->db->trans_complete();
+
+		$this->load->view('topo', $this->dados);
+
+		$this->load->view($this->db->trans_status() === FALSE ? 'curadoria/fail' : 'curadoria/sucesso');
+		
+		$this->load->view('rodape');
 	}
 
 }

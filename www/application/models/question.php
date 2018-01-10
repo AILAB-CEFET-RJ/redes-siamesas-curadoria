@@ -5,7 +5,6 @@ class Question extends CI_Model {
 	var $img_id;
 	var $statement;
 	var $answer;
-	var $curation;
 
 	var $annotation;
 
@@ -25,6 +24,28 @@ class Question extends CI_Model {
 
 		$this->annotation = new Annotation();
 		return $this->annotation;
+	}
+
+	public function get_question_for_curation($img_id_vqa, $img_id_imagenet){
+		$this->load->database();
+		$query = $this->db->query("SELECT * FROM question q WHERE q.img_id = '$img_id_vqa' AND q.id NOT IN (SELECT q1.question_id FROM question_curation q1 WHERE q1.vqa_img_id = '$img_id_vqa' AND q1.imagenet_img_id = '$img_id_imagenet') ORDER BY RAND() LIMIT 1");
+		
+		if($query->num_rows() == 0){
+			return false;
+		}
+		
+		return $query->row();
+	}
+
+	public function get_new_question($img_id_vqa, $img_id_imagenet, $old_question_id){
+		$this->load->database();
+		$query = $this->db->query("SELECT * FROM question q WHERE q.img_id = '$img_id_vqa' AND q.id <> '$old_question_id' AND q.id NOT IN (SELECT q1.question_id FROM question_curation q1 WHERE q1.vqa_img_id = '$img_id_vqa' AND q1.imagenet_img_id = '$img_id_imagenet') ORDER BY RAND() LIMIT 1");
+		
+		if($query->num_rows() == 0){
+			return false;
+		}
+		
+		return $query->row();
 	}
 }
 ?>
