@@ -2,7 +2,7 @@
 
 class Curadoria extends CI_Controller {
 
-	private $dados;
+	private $dados;	
 	 
 	public function __construct()
 	{
@@ -64,6 +64,8 @@ class Curadoria extends CI_Controller {
 	{
 		$this->load->helper(array('form', 'url'));
 
+		$usuario_id = $this->dados["usuario"]->id;
+
 		// captura variaveis POST
 		$vqa_img_id = $this->input->post("annotation_vqa_id");
 		$imagenet_img_id = $this->input->post("annotation_imagenet_id");
@@ -78,11 +80,11 @@ class Curadoria extends CI_Controller {
 		$this->db->trans_start();
 
 		// inserir uma copia da questao para a imagem candidata usando a resposta do usuário
-		$answer = $this->input->post("imagenet_answer") == 'Sim' ? 'sim' : 'nao';
+		$answer = $this->input->post("imagenet_answer");
 		$this->dados = array(
 			"img_id" => $imagenet_img_id,
 			"statement" => $question->statement,
-			"answer" => $answer
+			"answer" => $answer			
 		);
 		$this->db->insert('question', $this->dados);
 
@@ -91,7 +93,8 @@ class Curadoria extends CI_Controller {
 		$this->dados = array(
 			"vqa_img_id" => $vqa_img_id,
 			"imagenet_img_id" => $imagenet_img_id,
-			"question_id" => $question_id
+			"question_id" => $question_id,
+			"usuario_id" => $usuario_id
 		);
 		$this->db->insert('question_curation', $this->dados);
 

@@ -3,10 +3,21 @@
 class Login extends CI_Controller {
 	
 	private $TAMANHO_NOVA_SENHA = 8;
+	private $usuario;
 
-	public function index()
-	{
+	public function __construct(){
+		parent::__construct();	
+		$this->load->library('session');
+				
+		$usuario = unserialize($this->session->userdata("usuario_logado"));	
+	} 
+
+	public function index()	{		
 		
+		if( $this->usuario != null ){
+			redirect("annotations");
+		}
+
 		$this->load->helper("form");
 		
 		$this->load->view('topo');
@@ -34,7 +45,7 @@ class Login extends CI_Controller {
 			
 			
 			if(iniciar_sessao($email, $senha)){				
-				redirect("usuarios");
+				redirect("annotations");
 			} else {				
 				$data["erro"] = "Usu&aacute;rio e/ou senha inv&aacute;lidos";	
 				$this->load->view('topo');
@@ -110,7 +121,7 @@ class Login extends CI_Controller {
 
 		$this->email->from('rsilva@ramonsilva.net', 'Ramon Silva');
 		$this->email->to($usuarioInstance->email); 
-		$this->email->subject('[NÃ£o responda] - Pesquisa Leitor');
+		$this->email->subject('[Não responda] - Pesquisa Leitor');
 		$mensagem = 'Sua nova senha foi gerada em nosso site em ' . date("d/m/Y h:i:s") . ".";
 		$mensagem += "\n\rSua senha antiga nÃ£o Ã© mais vÃ¡lida.";
 		$mensagem += "\n\rSenha : " . $novaSenha;
@@ -128,11 +139,11 @@ class Login extends CI_Controller {
 		$mensagem += "\nSua senha antiga nÃ£o Ã© mais vÃ¡lida.";
 		$mensagem += "\nSenha : " . $novaSenha;
 		$mensagem =+ "\nIP: " . $this->input->ip_address();
-		send_email($usuarioInstance->email, '[NÃ£o responda] - Pesquisa Leitor', $mensagem);
+		send_email($usuarioInstance->email, '[Não responda] - Pesquisa Leitor', $mensagem);
 	}
 
 	public function ver_senha(){
 		$this->load->library('encrypt');
-		echo $this->encrypt->encode("w2140p");
+		echo $this->encrypt->encode("123456");
 	}
 }

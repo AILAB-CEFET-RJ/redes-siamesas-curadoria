@@ -7,8 +7,7 @@ class Usuario extends CI_Model {
 	var $email;
 	var $senha;
 	var $data_ultimo_login;
-	var $admin;
-			
+	var $admin;		
 }
 
 ?>
