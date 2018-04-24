@@ -52,7 +52,7 @@
         <?php if(isset($usuario)) : ?>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">            
-            <li class="<?php echo  $segmento == "annotations" ? "active" : "" ?>"><a href="<?php echo base_url('annotations');?>">Anotações</a></li>
+            <li class="<?php echo  $segmento == "annotations" ? "active" : "" ?>"><a href="<?php echo base_url('annotations');?>">Imagens</a></li>
             <li class="<?php echo  $segmento == "synsets" ? "active" : "" ?>"><a href="<?php echo base_url('synsets');?>">Synsets</a></li>
             <li class="<?php echo  $segmento == "curadoria" ? "active" : "" ?>"><a href="<?php echo base_url('curadoria');?>">Curadoria</a></li>
           <?php if($usuario->admin == 1) { ?>

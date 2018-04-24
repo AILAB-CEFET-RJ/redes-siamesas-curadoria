@@ -27,10 +27,10 @@
 
 <div class="row" style="text-align: center;">
   <div class="col-md-6">
-  	<img width="128"  src="<?php echo base_url('dataset/vqa/' . $annotationVqa->filename);?>" />
+  	<img width="299"  src="<?php echo base_url('dataset/vqa/' . $annotationVqa->filename);?>" />
   </div>
   <div class="col-md-6">
-  	<img width="128"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
+  	<img width="299"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
   </div>
 </div>
 <div class="row" style="margin-top: 3%; text-align: center;">
