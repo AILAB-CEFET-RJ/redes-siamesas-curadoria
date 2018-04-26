@@ -18,12 +18,13 @@ class Curadoria extends CI_Controller {
 		if($imgMatch = $this->img_match->get_register_for_curation())
 		{
 			$this->load->model("annotation");
+			$this->db->order_by('rand()');
 			$annotationVqa = $this->db->get_where("annotation", array("img_id" => $imgMatch->vqa_img_id))->row(0, "annotation");
 			$annotationImagenet = $this->db->get_where("annotation", array("img_id" => $imgMatch->imagenet_img_id))->row(0, "annotation");
 			// admitindo que se o atributo curation de img_match ainda é 0, então ainda existem perguntas
 			$this->load->model("question");
 
-			$this->dados["question"] = $this->question->get_question_for_curation($annotationVqa->img_id, $annotationImagenet->img_id);
+			$this->dados["question"] = $this->question->get_question_for_curation($annotationVqa->img_id, $annotationImagenet->img_id, $this->dados["usuario"]->id);
 			$this->dados['annotationVqa'] = $annotationVqa;
 			$this->dados['annotationImagenet'] = $annotationImagenet;
 
