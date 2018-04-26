@@ -40,10 +40,10 @@
 	<?=form_open('curadoria/register_match_question', array('role' => 'form'));?>
 		<div class="row" style="text-align: center;">
 			<div class="col-md-4 col-md-offset-1">
-				<input type="text" readonly class="form-control" id="vqa_answer" value="<?php echo $question->answer == 'sim' ? 'Sim' : 'Não'; ?>">
+				<input type="text" readonly class="form-control" id="vqa_answer" value="<?php echo $question->answer?>">
 			</div>
 			<div class="col-md-2 col-md-offset-2">
-				<input type="text" class="form-control" id="imagenet_answer" name="imagenet_answer" value="<?php echo $question->answer == 'sim' ? 'Sim' : 'Não'; ?>" readonly />
+				<input type="text" class="form-control" id="imagenet_answer" name="imagenet_answer" value="<?php echo $question->answer ?>" />
 			</div>
 			<div class="col-md-2">
 				<button type="button" class="btn btn-primary" id="btnToggleAnswer">Alternar Resposta</button>
