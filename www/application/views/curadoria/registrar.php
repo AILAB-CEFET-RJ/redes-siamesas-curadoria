@@ -79,7 +79,7 @@
 		});
 
 		$('#btn_no_match').click(function(e){
-			$('form').attr('action', '<?php echo base_url('register_no_match_question')?>');
+			$('form').attr('action', '<?php echo base_url('curadoria/register_no_match_question')?>');
 			$('form').submit();
 		});
 
