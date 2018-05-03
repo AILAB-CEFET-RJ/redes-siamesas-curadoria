@@ -3,8 +3,8 @@
 
 <div class="row">
   <div class="alert alert-success">
-  	<h1>Sucesso!</h1>
-  	<p>O usu&aacute;rio foi exclu&iacute;do do sistema.</p>
+  	<h1>Sucess!</h1>
+  	<p>User deleted.</p>
   </div>
-  <p><a class="btn btn-primary btn-lg" role="button" href="<?=base_url('usuarios/index')?>">Voltar para a Lista</a></p>
+  <p><a class="btn btn-primary btn-lg" role="button" href="<?=base_url('usuarios/index')?>">Back to List</a></p>
 </div>

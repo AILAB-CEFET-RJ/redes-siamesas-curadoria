@@ -1,7 +1,7 @@
 <div class='row'>
 	<ol class="breadcrumb">
 	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li class="active">Usu&aacute;rios</li>  
+	  <li class="active">Users</li>  
 	</ol>
 </div>
 
@@ -10,8 +10,8 @@
 	  <div class="form-group">	   
 	    <input type="search" class="form-control campo-busca" id="q" value="<?=$q?>" placeholder="digite o nome ou o email" name="q">	  	
 	  </div>
-	  <button type="submit" class="btn btn-default button-pesquisar">Pesquisar</button>
-	  <button type="button" class="btn btn-success button-adicionar" onclick="location.href='<?=base_url('usuarios/criar')?>'">Adicionar Usu&aacute;rio</button>
+	  <button type="submit" class="btn btn-default button-pesquisar">Search</button>
+	  <button type="button" class="btn btn-success button-adicionar" onclick="location.href='<?=base_url('usuarios/criar')?>'">Add User</button>
 	<?=form_close();?>
 </div>
 
@@ -19,15 +19,15 @@
 
 <div class="row">
 
-<img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" /> = <em>administrador</em>
+<img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" /> = <em>admin</em>
 <hr />
 <table class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
-          <th>Nome</th>
+          <th>Name</th>
           <th>E-mail</th>
-          <th>Data do &Uacute;ltimo Login</th>
+          <th>Last Login</th>
           <th></th>
         </tr>
       </thead>

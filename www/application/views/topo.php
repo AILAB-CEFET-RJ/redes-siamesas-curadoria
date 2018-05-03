@@ -45,23 +45,23 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand site-id" href="<?php echo base_url();?>">
-            <img  class="site-logo" src="<?php echo base_url('assets/img/icons/color_swatch.png');?>" width="28" alt="logo invest" title="Invest" />
-            <span class="site-name">Curadoria de Imagens</span>
+            <img  class="site-logo" src="<?php echo base_url('assets/img/icons/color_swatch.png');?>" width="28" alt="logo invest" title="Curation" />
+            <span class="site-name">Images Curation</span>
           </a>
         </div>
         <?php if(isset($usuario)) : ?>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">            
-            <li class="<?php echo  $segmento == "annotations" ? "active" : "" ?>"><a href="<?php echo base_url('annotations');?>">Imagens</a></li>
+            <li class="<?php echo  $segmento == "annotations" ? "active" : "" ?>"><a href="<?php echo base_url('annotations');?>">Images</a></li>
             <li class="<?php echo  $segmento == "synsets" ? "active" : "" ?>"><a href="<?php echo base_url('synsets');?>">Synsets</a></li>
-            <li class="<?php echo  $segmento == "curadoria" ? "active" : "" ?>"><a href="<?php echo base_url('curadoria');?>">Curadoria</a></li>
+            <li class="<?php echo  $segmento == "curadoria" ? "active" : "" ?>"><a href="<?php echo base_url('curadoria');?>">Curate</a></li>
           <?php if($usuario->admin == 1) { ?>
-            <li class="<?php echo  $segmento == "usuarios" ? "active" : "" ?>"><a href="<?php echo base_url('usuarios');?>">Usu&aacute;rios</a></li>
+            <li class="<?php echo  $segmento == "usuarios" ? "active" : "" ?>"><a href="<?php echo base_url('usuarios');?>">Users</a></li>
           <?php } ?>            
           </ul>          
           <ul class="nav navbar-nav navbar-right">
-            <li class="saudacao">Ol&aacute;, <?php echo $usuario->nome;?></li>          
-            <li class="active"><a href="<?php echo base_url("logout");?>">Sair</a></li>
+            <li class="saudacao">Hi, <?php echo $usuario->nome;?></li>          
+            <li class="active"><a href="<?php echo base_url("logout");?>">Logoff</a></li>
           </ul>                  
         </div><!--/.nav-collapse -->  
         <?php endif; ?>         

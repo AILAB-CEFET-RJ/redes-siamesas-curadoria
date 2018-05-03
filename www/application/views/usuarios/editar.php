@@ -1,8 +1,8 @@
 <div class='row'>
 	<ol class="breadcrumb">
 	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('usuarios')?>">Usu&aacute;rios</a></li>
-	  <li class="active">Editar Usu&aacute;rio</li>  
+	  <li><a href="<?=base_url('usuarios')?>">Users</a></li>
+	  <li class="active">Edit User</li>  
 	</ol>
 </div>
 
@@ -22,36 +22,36 @@
 	<?=form_open('usuarios/atualizar', array('role' => 'form'));?>
 	  <input type="hidden" name="id" value="<?=$usuario->id?>" />	  
 	  <div class="form-group">
-	    <label for="exampleInputEmail1">Nome</label>
+	    <label for="exampleInputEmail1">Name</label>
 	    <input type="text" class="form-control" id="nome" value="<?=$usuario->nome?>" name="nome" placeholder="">
 	  </div>
 	  <div class="form-group">
-	    <label for="exampleInputEmail1">Email</label>
+	    <label for="exampleInputEmail1">E-mail</label>
 	    <input type="email" class="form-control" id="email" name="email" value="<?=$usuario->email?>" placeholder="email@example.com">
 	  </div>
 	  <div class="form-group">
-	    <label for="exampleInputEmail1">Confirme o e-mail</label>
+	    <label for="exampleInputEmail1">E-mail Confirmation</label>
 	    <input type="email" class="form-control" id="confirme_email" value="<?=$usuario->email?>" name="confirme_email" placeholder="email@example.com">
 	  </div>	  	  
-	  <button type="submit" class="btn btn-primary button-salvar">Atualizar Dados</button>  
+	  <button type="submit" class="btn btn-primary button-salvar">Update User Data</button>  
 	  <hr />
 	  <?=form_close();?>
 	  <?=form_open('usuarios/atualizar_senha', array('role' => 'form'));?>
 	  <input type="hidden" name="id" value="<?=$usuario->id?>" />	  
 	  <div class="form-group">
-	    <label for="exampleInputEmail1">Senha Atual</label>
+	    <label for="exampleInputEmail1">Current Password</label>
 	    <input type="password" class="form-control" id="senha_antiga" name="senha_antiga" placeholder="senha">
 	  </div>
 	  <div class="form-group">
-	    <label for="exampleInputEmail1">Nova Senha</label>
+	    <label for="exampleInputEmail1">New Senha</label>
 	    <input type="password" class="form-control" id="senha" name="senha" placeholder="senha">
 	  </div>
 	  <div class="form-group">
-	    <label for="exampleInputEmail1">Confirme a nova senha</label>
+	    <label for="exampleInputEmail1">New Password Confirmation</label>
 	    <input type="password" class="form-control" id="confirme_senha" name="confirme_senha" placeholder="senha">
 	  </div>	  
 	  <hr />
-	  <button type="submit" class="btn btn-primary button-salvar">Atualizar Senha</button>
+	  <button type="submit" class="btn btn-primary button-salvar">Update Password</button>
 	  <button type="button" onclick="javascript:location.href='<?=base_url("usuarios/index")?>'" class="btn btn-danger">Cancelar</button>
 	  <?=form_close();?>
 </div>
