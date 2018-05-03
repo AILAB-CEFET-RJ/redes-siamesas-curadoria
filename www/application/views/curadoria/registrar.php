@@ -2,8 +2,8 @@
 <div class='row'>
 	<ol class="breadcrumb">
 	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('curadoria')?>">Curadoria</a></li>
-	  <li class="active">Registrar curadoria</li>  
+	  <li><a href="<?=base_url('curadoria')?>">Curation</a></li>
+	  <li class="active">Register Annotation</li>  
 	</ol>
 </div>
 
@@ -16,13 +16,13 @@
 <?php endif; ?>
 
 <div class='row'>
-	<h2>Registro de Curadoria</h2>
+	<h2>Curation</h2>
 </div>
 <hr />
 
 <div class="row" style="text-align: center;">
-  <div class="col-md-6"><label>Imagem do conjunto de dados</label></div>
-  <div class="col-md-6"><label>Imagem candidata</label></div>
+  <div class="col-md-6"><label>Original dataset Image</label></div>
+  <div class="col-md-6"><label>Candidate dataset Image</label></div>
 </div>
 
 <div class="row" style="text-align: center;">
@@ -34,7 +34,7 @@
   </div>
 </div>
 <div class="row" style="margin-top: 3%; text-align: center;">
-	<label>Pergunta: <?php echo $question->statement; ?></label>
+	<label>Question: <?php echo $question->statement; ?></label>
 </div>
 <div style="margin-top: 3%;">
 	<?=form_open('curadoria/register_match_question', array('role' => 'form'));?>
@@ -46,18 +46,18 @@
 				<input type="text" class="form-control" id="imagenet_answer" name="imagenet_answer" value="<?php echo $question->answer ?>" />
 			</div>
 			<div class="col-md-2">
-				<button type="button" class="btn btn-primary" id="btnToggleAnswer">Alternar Resposta</button>
+				<button type="button" class="btn btn-primary" id="btnToggleAnswer">Swap Answer</button>
 			</div>
 		</div>
 
 		<div class="row" style="margin-top: 1%; text-align: center;">
 			<div class="col-md-6 col-md-offset-6">
-				<button type="submit" class="btn btn-primary button-salvar">Responder</button>
+				<button type="submit" class="btn btn-primary button-salvar">Response</button>
 			</div>
 		</div>
 		<div class="row" style="margin-top: 1%; text-align: center;">
 			<div class="col-md-6 col-md-offset-6">
-				<button type="button" id="btn_no_match" class="btn btn-danger button-salvar">Não se aplica a esta imagem</button>		
+				<button type="button" id="btn_no_match" class="btn btn-danger button-salvar">Does not apply to this image</button>		
 			</div>
 		</div>
 		<hr />
@@ -65,9 +65,9 @@
 		<input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
 		<input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
 		<input type="hidden" name="annotation_vqa_id" value="<?php echo $annotationVqa->img_id; ?>" />
-		<button type="button" class="btn btn-primary" onclick="javascript:location.href='<?=base_url("curadoria/change_question/$annotationVqa->img_id/$annotationImagenet->img_id/$question->id")?>'">Pular pergunta</button>
-		<button type="button" class="btn btn-primary" onclick="javascript:location.href='<?=base_url("curadoria")?>'">Pular imagem</button>
-		<button type="button" class="btn btn-danger" onclick="javascript:location.href='<?=base_url("annotations")?>'">Cancelar</button>
+		<button type="button" class="btn btn-primary" onclick="javascript:location.href='<?=base_url("curadoria/change_question/$annotationVqa->img_id/$annotationImagenet->img_id/$question->id")?>'">Skip question</button>
+		<button type="button" class="btn btn-primary" onclick="javascript:location.href='<?=base_url("curadoria")?>'">Skip image</button>
+		<button type="button" class="btn btn-danger" onclick="javascript:location.href='<?=base_url("annotations")?>'">Cancel</button>
 	<?=form_close();?>
 </div>
 

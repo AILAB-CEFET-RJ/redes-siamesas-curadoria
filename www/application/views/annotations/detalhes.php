@@ -1,14 +1,14 @@
 <div class='row'>
 	<ol class="breadcrumb">
 	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('annotations')?>">Anotações</a></li>
-	  <li class="active">Detalhes</li>  
+	  <li><a href="<?=base_url('annotations')?>">Image Annotattions</a></li>
+	  <li class="active">Details</li>  
 	</ol>
 </div>
 
 
 <div class='row'>
-	<h2>Detalhes da Imagem [<?=$annotation->dataset_source?>]</h2>
+	<h2>Image Details [<?=$annotation->dataset_source?>]</h2>
 	<hr />
 	<div class="form-group">
 	    <label for="nome">IMG_ID:</label>
@@ -19,12 +19,12 @@
 	    <span><?=$annotation->wnid?></span>
 	  </div> 
       <div class="form-group">
-	    <label for="nome">Atributos :</label>
+	    <label for="nome">Atributtes :</label>
 	    <span><?=$annotation->attrs?></span>
 	  </div> 
 
 	  <div class="form-group">
-	    <label for="nome">Dataset de Origem :</label>
+	    <label for="nome">Dataset Source :</label>
 	    <span><?=$annotation->dataset_source?></span>
 	  </div> 
 
@@ -34,7 +34,7 @@
 	  </div> 
 
       <div class="form-group" style="width:40%">
-	    <label for="nome">Caixas Delimitadoras (Bounding Boxes)</label>
+	    <label for="nome">Bounding Boxes</label>
 	    
         <table class="table">            
             <tbody>
@@ -65,4 +65,4 @@
 	  </div> 
 </div>
 <hr />
-<a href="<?=base_url("annotations/index")?>" type="button" class="btn btn-primary button-listar">Voltar para Lista</a>
+<a href="<?=base_url("annotations/index")?>" type="button" class="btn btn-primary button-listar">Back to List</a>

@@ -18,7 +18,7 @@
 
 <?php if(isset($q) && !empty($q)) : ?>
 <div class="row">
-     Foram encontrados <strong><?php echo $total_rows; ?></strong> resultado(s) encontrados para "<em><?php echo $q; ?></em>"
+     <strong><?php echo $total_rows; ?></strong> Result(s) found for "<em><?php echo $q; ?></em>"
 </div>
 <?php endif; ?>
 
@@ -35,7 +35,7 @@
           <th>img_id</th>
           <th>wnid</th>
           <th>Synset</th>
-          <th>Origem</th>
+          <th>Dataset</th>
           <th></th>          
           <th></th>
         </tr>
