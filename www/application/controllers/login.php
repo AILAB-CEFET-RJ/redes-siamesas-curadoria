@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	public function index()	{		
 		
 		if( $this->usuario != null ){
-			redirect("annotations");
+			redirect("curadoria");
 		}
 
 		$this->load->helper("form");
@@ -45,9 +45,9 @@ class Login extends CI_Controller {
 			
 			
 			if(iniciar_sessao($email, $senha)){				
-				redirect("annotations");
+				redirect("curadoria");
 			} else {				
-				$data["erro"] = "Usu&aacute;rio e/ou senha inv&aacute;lidos";	
+				$data["erro"] = "Invalid Username or password";	
 				$this->load->view('topo');
 				$this->load->view('login/formulario', $data);
 				$this->load->view('rodape');
@@ -121,7 +121,7 @@ class Login extends CI_Controller {
 
 		$this->email->from('rsilva@ramonsilva.net', 'Ramon Silva');
 		$this->email->to($usuarioInstance->email); 
-		$this->email->subject('[Não responda] - Pesquisa Leitor');
+		$this->email->subject('[No reply] - Imagenet Curation');
 		$mensagem = 'Sua nova senha foi gerada em nosso site em ' . date("d/m/Y h:i:s") . ".";
 		$mensagem += "\n\rSua senha antiga nÃ£o Ã© mais vÃ¡lida.";
 		$mensagem += "\n\rSenha : " . $novaSenha;
@@ -136,10 +136,10 @@ class Login extends CI_Controller {
 	public function _mandaEmail($usuarioInstance, $novaSenha){
 		$this->load->helper('email');
 		$mensagem = 'Sua nova senha foi gerada em nosso site em ' . date("d/m/Y h:i:s") . ".";
-		$mensagem += "\nSua senha antiga nÃ£o Ã© mais vÃ¡lida.";
-		$mensagem += "\nSenha : " . $novaSenha;
+		$mensagem += "\nYour old password is no longer valid.";
+		$mensagem += "\nPassword : " . $novaSenha;
 		$mensagem =+ "\nIP: " . $this->input->ip_address();
-		send_email($usuarioInstance->email, '[Não responda] - Pesquisa Leitor', $mensagem);
+		send_email($usuarioInstance->email, '[No Reply] - Imagenet Curation', $mensagem);
 	}
 
 	public function ver_senha(){
