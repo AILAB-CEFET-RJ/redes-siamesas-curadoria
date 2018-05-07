@@ -12,13 +12,15 @@ class Img_match extends CI_Model
 
 		// recupero um par de imagens que não foi curado por qualquer usuario
 		$query = $this->db->query(' SELECT 
-										i.* 
+										i.vqa_img_id, i.imagenet_img_id
 									    
 									FROM
 										img_match i LEFT JOIN `user_curation` uc ON uc.`vqa_img_id` = i.`vqa_img_id` AND uc.`imagenet_img_id` = i.`imagenet_img_id`
 
 									WHERE 
 										uc.`vqa_img_id` IS NULL
+									AND
+										i.vqa_img_id IN (SELECT img_id FROM (`question`) WHERE `answer_type` = "yes/no")
 
 									ORDER BY RAND() 
 

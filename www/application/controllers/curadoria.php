@@ -11,8 +11,7 @@ class Curadoria extends CI_Controller {
 		$this->dados["usuario"] = verifica_sessao();
 	} 
 	
-	public function index()
-	{
+	public function index()	{		
 		$this->load->database();
 		$this->load->model("img_match");
 		if($imgMatch = $this->img_match->get_register_for_curation($this->dados["usuario"]->id))
@@ -34,7 +33,7 @@ class Curadoria extends CI_Controller {
 		{
 			$strView = 'curadoria/empty';
 		}
-
+				
 		$this->load->view('topo', $this->dados);
 		$this->load->view($strView, $this->dados);
 		$this->load->view('rodape');

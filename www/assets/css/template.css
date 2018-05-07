@@ -125,3 +125,11 @@ form-signin {
   float:right;  
   display: block;
 }
+
+.curation-question{
+	padding: 35px;
+	padding-bottom: 15px;
+	font-size: 36px !important;
+}
+
+

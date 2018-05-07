@@ -7,81 +7,57 @@
 	</ol>
 </div>
 
-<?php if(validation_errors()) : ?>
-<div class='row'>
-	<div class="alert alert-danger">
-		<?php echo validation_errors(); ?>
-	</div>
+<div class="row" style="text-align: center;">
+  <div class="col-md-6"><h4>Original dataset Image</h4></div>
+  <div class="col-md-6"><h4>Candidate dataset Image</h4></div>
 </div>
-<?php endif; ?>
 
-<div class='row'>
-	<h2>Curation</h2>
+<div class="row" style="text-align: center;">
+  <div class="col-md-6">
+  	<img width="350" height="299"  src="<?php echo base_url('dataset/vqa/' . $annotationVqa->filename);?>" />
+  </div>
+  <div class="col-md-6">
+  	<img width="350" height="299"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
+  </div>
 </div>
+<div class="row text-center curation-question">
+	<h1>Question: <?php echo $question->statement; ?></h1>
+	<br />
+</div>
+
+<div class="row" style="text-align: center;">
+  <?=form_open('curadoria/register_match_question', array('role' => 'form'));?>		  
+  <div class="col-md-6">
+  	<?php if($question->answer == "yes"): ?>
+		<p style="font-size:48px; color:#006600 text-transform: capitalize"><?php echo $question->answer; ?></p>
+	<?php else: ?>
+		<p style="font-size:48px; color:#660000 text-transform: capitalize"><?php echo $question->answer; ?></p>
+	<?php endif;?>
+  </div>
+  
+  <div class="col-md-4 col-md-offset-1">
+	<a href="#" type="button" class="btn btn btn-success btn-block">Yes</a>
+	<a href="#" type="button" class="btn btn btn-danger btn-block">No</a>
+	<a href="#" type="button" class="btn btn btn-default btn-block" onclick="javascript:location.href='<?=base_url("curadoria/register_no_match_question")?>'">Does not apply to this image</a>
+  </div>
+  
+  <input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
+  <input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
+  <input type="hidden" name="annotation_vqa_id" value="<?php echo $annotationVqa->img_id; ?>" />
+  
+  <?=form_close();?>
+</div>
+
 <hr />
-
-<div class="row" style="text-align: center;">
-  <div class="col-md-6"><label>Original dataset Image</label></div>
-  <div class="col-md-6"><label>Candidate dataset Image</label></div>
-</div>
-
-<div class="row" style="text-align: center;">
-  <div class="col-md-6">
-  	<img width="299"  src="<?php echo base_url('dataset/vqa/' . $annotationVqa->filename);?>" />
-  </div>
-  <div class="col-md-6">
-  	<img width="299"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
-  </div>
-</div>
-<div class="row" style="margin-top: 3%; text-align: center;">
-	<label>Question: <?php echo $question->statement; ?></label>
-</div>
-<div style="margin-top: 3%;">
-	<?=form_open('curadoria/register_match_question', array('role' => 'form'));?>
-		<div class="row" style="text-align: center;">
-			<div class="col-md-4 col-md-offset-1">
-				<input type="text" readonly class="form-control" id="vqa_answer" value="<?php echo $question->answer?>">
-			</div>
-			<div class="col-md-2 col-md-offset-2">
-				<input type="text" class="form-control" id="imagenet_answer" name="imagenet_answer" value="<?php echo $question->answer ?>" />
-			</div>
-			<div class="col-md-2">
-				<button type="button" class="btn btn-primary" id="btnToggleAnswer">Swap Answer</button>
-			</div>
-		</div>
-
-		<div class="row" style="margin-top: 1%; text-align: center;">
-			<div class="col-md-6 col-md-offset-6">
-				<button type="submit" class="btn btn-primary button-salvar">Response</button>
-			</div>
-		</div>
-		<div class="row" style="margin-top: 1%; text-align: center;">
-			<div class="col-md-6 col-md-offset-6">
-				<button type="button" id="btn_no_match" class="btn btn-danger button-salvar">Does not apply to this image</button>		
-			</div>
-		</div>
-		<hr />
-
-		<input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
-		<input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
-		<input type="hidden" name="annotation_vqa_id" value="<?php echo $annotationVqa->img_id; ?>" />
-		<button type="button" class="btn btn-primary" onclick="javascript:location.href='<?=base_url("curadoria/change_question/$annotationVqa->img_id/$annotationImagenet->img_id/$question->id")?>'">Skip question</button>
-		<button type="button" class="btn btn-primary" onclick="javascript:location.href='<?=base_url("curadoria")?>'">Skip image</button>
-		<button type="button" class="btn btn-danger" onclick="javascript:location.href='<?=base_url("annotations")?>'">Cancel</button>
-	<?=form_close();?>
+<div class="row text-center">	
+	<a onclick="javascript:location.href='<?=base_url("curadoria")?>'" type="button" style="width:25%" class="btn btn btn-primary  btn-lg">Skip Image</a>
+	<a onclick="javascript:location.href='<?=base_url("curadoria/change_question/$annotationVqa->img_id/$annotationImagenet->img_id/$question->id")?>'" href="<?=base_url("annotations/index")?>" type="button" style="width:25%" class="btn btn btn-primary  btn-lg">Skip Question</a>	
 </div>
 
 <script type="text/javascript">
 	$('document').ready(function(){
-
 		$('#btnToggleAnswer').click(function(){
 			$('#imagenet_answer').val($('#imagenet_answer').val() == 'Sim' ? 'Não' : 'Sim');
-		});
-
-		$('#btn_no_match').click(function(e){
-			$('form').attr('action', '<?php echo base_url('curadoria/register_no_match_question')?>');
-			$('form').submit();
-		});
-
+		});		
 	});
 </script>
