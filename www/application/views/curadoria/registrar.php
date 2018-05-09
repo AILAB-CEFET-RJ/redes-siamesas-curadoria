@@ -21,12 +21,12 @@
   </div>
 </div>
 <div class="row text-center curation-question">
-	<h1>Question: <?php echo $question->statement; ?></h1>
+	<h1>Question: <?php echo $question->statement?></h1>
 	<br />
 </div>
 
 <div class="row" style="text-align: center;">
-  <?=form_open('curadoria/register_match_question', array('role' => 'form'));?>		  
+  <?=form_open('curadoria/register_match_question', array('role' => 'form', "id" => "formAnswer"));?>		  
   <div class="col-md-6">
   	<?php if($question->answer == "yes"): ?>
 		<p style="font-size:48px; color:#006600 text-transform: capitalize"><?php echo $question->answer; ?></p>
@@ -36,14 +36,15 @@
   </div>
   
   <div class="col-md-4 col-md-offset-1">
-	<a href="#" type="button" class="btn btn btn-success btn-block">Yes</a>
-	<a href="#" type="button" class="btn btn btn-danger btn-block">No</a>
-	<a href="#" type="button" class="btn btn btn-default btn-block" onclick="javascript:location.href='<?=base_url("curadoria/register_no_match_question")?>'">Does not apply to this image</a>
+	<a href="#" type="button" id="btnYes" class="btn btn btn-success btn-block">Yes</a>
+	<a href="#" type="button" id="btnNo" class="btn btn btn-danger btn-block">No</a>
+	<a href="#" type="button" id="btnSkipQuestion" class="btn btn btn-default btn-block" onclick="javascript:location.href='<?=base_url("curadoria/register_no_match_question/$annotationVqa->img_id/$annotationImagenet->img_id/$question->id")?>'" />Does not apply to this image</a>
   </div>
   
   <input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
   <input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
   <input type="hidden" name="annotation_vqa_id" value="<?php echo $annotationVqa->img_id; ?>" />
+	<input type="hidden" name="imagenet_answer" id="imagenet_answer" value="<?php echo $annotationVqa->img_id; ?>" />
   
   <?=form_close();?>
 </div>
@@ -56,8 +57,15 @@
 
 <script type="text/javascript">
 	$('document').ready(function(){
-		$('#btnToggleAnswer').click(function(){
-			$('#imagenet_answer').val($('#imagenet_answer').val() == 'Sim' ? 'Não' : 'Sim');
+		$('#btnYes').click(function(){
+			$('#imagenet_answer').val("yes");
+			$('#formAnswer').submit();
 		});		
+
+		$('#btnNo').click(function(){
+			$('#imagenet_answer').val("no");
+			$('#formAnswer').submit();
+		});				
+
 	});
 </script>

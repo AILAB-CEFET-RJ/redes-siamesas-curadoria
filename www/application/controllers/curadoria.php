@@ -24,6 +24,11 @@ class Curadoria extends CI_Controller {
 			$this->load->model("question");
 
 			$this->dados["question"] = $this->question->get_question_for_curation($annotationVqa->img_id, $annotationImagenet->img_id, $this->dados["usuario"]->id);
+			
+			if($this->dados["question"] === false){
+				redirect("curadoria/index");	
+			}
+
 			$this->dados['annotationVqa'] = $annotationVqa;
 			$this->dados['annotationImagenet'] = $annotationImagenet;
 
@@ -44,7 +49,7 @@ class Curadoria extends CI_Controller {
 		$this->load->database();
 		$this->load->model("question");
 		if($newQuestion = $this->question->get_new_question($annotationVqaId, $annotationImagenetId, $oldQuestionId, $this->dados["usuario"]->id)){
-			$this->dados["question"] = $newQuestion;
+			$this->dados["question"] = $newQuestion;			
 			$this->load->model("annotation");
 			$this->dados["annotationVqa"] = $this->db->get_where("annotation", array("img_id" => $annotationVqaId))->row(0, "annotation");
 			$this->dados["annotationImagenet"] = $this->db->get_where("annotation", array("img_id" => $annotationImagenetId))->row(0, "annotation");
@@ -52,7 +57,7 @@ class Curadoria extends CI_Controller {
 			$strView = 'curadoria/registrar';
 		}
 		else{
-			$strView = 'curadoria/empty_question';
+			redirect("curadoria/index");	
 		}
 
 		$this->load->view('topo', $this->dados);
@@ -60,8 +65,7 @@ class Curadoria extends CI_Controller {
 		$this->load->view('rodape');
 	}
 
-	public function register_match_question()
-	{
+	public function register_match_question($annotationVqaId, $annotationImagenetId, $oldQuestionId){				
 		$this->registerCuration(1);
 	}
 
@@ -71,17 +75,24 @@ class Curadoria extends CI_Controller {
 		$this->registerCuration(0);
 	}
 
-	private function registerCuration($applicable)
+	private function registerCuration($applicable, $vars)
 	{
 		$this->load->helper(array('form', 'url'));
 		$usuario_id = $this->dados["usuario"]->id;
 
+		if(!empty($_POST)){
 		// captura variaveis POST
-		$vqa_img_id = $this->input->post("annotation_vqa_id");
-		$imagenet_img_id = $this->input->post("annotation_imagenet_id");
-		$question_id = $this->input->post("question_id");
-		$answer = $applicable == 1 ? $this->input->post("imagenet_answer") : NULL;
-		
+			$vqa_img_id = $this->input->post("annotation_vqa_id");
+			$imagenet_img_id = $this->input->post("annotation_imagenet_id");
+			$question_id = $this->input->post("question_id");
+			$answer = $applicable == 1 ? $this->input->post("imagenet_answer") : NULL;
+		} else{
+			$vqa_img_id = $vars["annotation_vqa_id"];
+			$imagenet_img_id = $vars["annotation_imagenet_id"];
+			$question_id = $vars["question_id"];
+			$answer = $applicable == 1 ? $this->input->post("imagenet_answer") : NULL;
+		}
+
 		// inicia a transação
 		$this->load->database();
 		$this->db->trans_start();
@@ -97,9 +108,10 @@ class Curadoria extends CI_Controller {
 
 		$this->db->trans_complete();
 
-		$this->load->view('topo', $this->dados);
+		/*$this->load->view('topo', $this->dados);
 		$this->load->view($this->db->trans_status() === FALSE ? 'curadoria/fail' : 'curadoria/sucesso');
-		$this->load->view('rodape');
+		$this->load->view('rodape');*/
+		redirect('curadoria/change_question/' . $vqa_img_id . '/' .  $imagenet_img_id . '/' . $question_id);
 	}
 
 	private function insertUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id)

@@ -28,11 +28,8 @@ class Question extends CI_Model {
 
 	public function get_question_for_curation($img_id_vqa, $img_id_imagenet, $usuario_id){
 		$this->load->database();
-		#$query = $this->db->query("SELECT * FROM question q WHERE q.answer_type = 'yes/no' and q.img_id = '$img_id_vqa' AND q.id NOT IN (SELECT q1.question_id FROM question_curation q1 WHERE q1.vqa_img_id = '$img_id_vqa' AND q1.imagenet_img_id = '$img_id_imagenet' AND q1.usuario_id = '$usuario_id') ORDER BY RAND() LIMIT 1");
+		$query = $this->db->query("SELECT * FROM question q WHERE q.answer_type = 'yes/no' and q.img_id = '$img_id_vqa' AND q.id NOT IN (SELECT q1.question_id FROM question_curation q1 WHERE q1.vqa_img_id = '$img_id_vqa' AND q1.imagenet_img_id = '$img_id_imagenet' AND q1.usuario_id = '$usuario_id') ORDER BY RAND() LIMIT 1");
 		
-		$this->db->where(array('answer_type' => 'yes/no', 'img_id' => $img_id_vqa));
-		$query = $this->db->get('question');
-						
 		if($query->num_rows() == 0){
 			return false;
 		}
@@ -42,7 +39,7 @@ class Question extends CI_Model {
 
 	public function get_new_question($img_id_vqa, $img_id_imagenet, $old_question_id, $usuario_id){
 		$this->load->database();
-		$query = $this->db->query("SELECT * FROM question q WHERE q.img_id = '$img_id_vqa' AND q.id <> '$old_question_id' AND q.id NOT IN (SELECT q1.question_id FROM question_curation q1 WHERE q1.vqa_img_id = '$img_id_vqa' AND q1.imagenet_img_id = '$img_id_imagenet' AND q1.usuario_id = '$usuario_id') ORDER BY RAND() LIMIT 1");
+		$query = $this->db->query("SELECT * FROM question q WHERE  q.answer_type = 'yes/no' and q.img_id = '$img_id_vqa' AND q.id <> '$old_question_id' AND q.id NOT IN (SELECT q1.question_id FROM question_curation q1 WHERE q1.vqa_img_id = '$img_id_vqa' AND q1.imagenet_img_id = '$img_id_imagenet' AND q1.usuario_id = '$usuario_id') ORDER BY RAND() LIMIT 1");
 		
 		if($query->num_rows() == 0){
 			return false;
