@@ -3,6 +3,9 @@
 class Curadoria extends CI_Controller {
 
 	private $dados;	
+
+	private $APPLICABLE = 1;
+	private $NOT_APPLICABLE = 0;
 	 
 	public function __construct()
 	{
@@ -65,14 +68,14 @@ class Curadoria extends CI_Controller {
 		$this->load->view('rodape');
 	}
 
-	public function register_match_question($annotationVqaId, $annotationImagenetId, $oldQuestionId){				
-		$this->registerCuration(1);
+	public function register_match_question(){				
+		$this->registerCuration($this->APPLICABLE);
 	}
 
 
-	public function register_no_match_question()
-	{
-		$this->registerCuration(0);
+	public function register_no_match_question($annotationVqaId, $annotationImagenetId, $oldQuestionId)	{
+		$vars = array('annotation_vqa_id' => $annotationVqaId, 'annotation_imagenet_id' => $annotationImagenetId, 'question_id' => $oldQuestionId);
+		$this->registerCuration($this->NOT_APPLICABLE, $vars);
 	}
 
 	private function registerCuration($applicable, $vars)
