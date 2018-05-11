@@ -20,24 +20,24 @@
 
 <div class='row'>
 	<?=form_open('usuarios/atualizar', array('role' => 'form'));?>
-	  <input type="hidden" name="id" value="<?=$usuario->id?>" />	  
+	  <input type="hidden" name="id" value="<?=$u->id?>" />	  
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Name</label>
-	    <input type="text" class="form-control" id="nome" value="<?=$usuario->nome?>" name="nome" placeholder="">
+	    <input type="text" class="form-control" id="nome" value="<?=$u->nome?>" name="nome" placeholder="">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">E-mail</label>
-	    <input type="email" class="form-control" id="email" name="email" value="<?=$usuario->email?>" placeholder="email@example.com">
+	    <input type="email" class="form-control" id="email" name="email" value="<?=$u->email?>" placeholder="email@example.com">
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">E-mail Confirmation</label>
-	    <input type="email" class="form-control" id="confirme_email" value="<?=$usuario->email?>" name="confirme_email" placeholder="email@example.com">
+	    <input type="email" class="form-control" id="confirme_email" value="<?=$u->email?>" name="confirme_email" placeholder="email@example.com">
 	  </div>	  	  
 	  <button type="submit" class="btn btn-primary button-salvar">Update User Data</button>  
 	  <hr />
 	  <?=form_close();?>
 	  <?=form_open('usuarios/atualizar_senha', array('role' => 'form'));?>
-	  <input type="hidden" name="id" value="<?=$usuario->id?>" />	  
+	  <input type="hidden" name="id" value="<?=$u->id?>" />	  
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Current Password</label>
 	    <input type="password" class="form-control" id="senha_antiga" name="senha_antiga" placeholder="senha">

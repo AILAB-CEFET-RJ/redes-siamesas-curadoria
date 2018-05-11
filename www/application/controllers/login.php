@@ -9,7 +9,7 @@ class Login extends CI_Controller {
 		parent::__construct();	
 		$this->load->library('session');
 				
-		$usuario = unserialize($this->session->userdata("usuario_logado"));	
+		$this->usuario = unserialize($this->session->userdata("usuario_logado"));	
 	} 
 
 	public function index()	{		

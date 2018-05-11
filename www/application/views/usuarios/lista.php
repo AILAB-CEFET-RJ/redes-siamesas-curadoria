@@ -25,6 +25,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Admin</th>
           <th>Name</th>
           <th>E-mail</th>
           <th>Last Login</th>
@@ -33,13 +34,17 @@
       </thead>
       <tbody>      	
       	<?php foreach($usuarios as $u): ?>
-        <tr>
+        <tr>        
           <td><?php echo $u->id; ?></td>
           <td>
-          	<a href="<?php echo base_url("usuarios/editar") . "/" . $u->id;?>">
-          	 <?php if($u->admin == 1){ ?>
-                  <img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" />
-              <?php } ?>
+            <?php if($u->admin == 1){ ?>
+               <img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" />
+            <?php } else { ?>
+                --
+            <?php } ?>
+          </td>
+          <td>
+          	<a href="<?php echo base_url("usuarios/editar") . "/" . $u->id;?>">          	
             	<?php echo $u->nome; ?>             
           	</a>          		
           </td>
