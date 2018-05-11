@@ -57,7 +57,7 @@ class Usuarios extends CI_Controller {
 			show_404("usuarios/excluir");			
 		}	
 				
-		$this->dados["usuario"] = $usuario;				
+		$this->dados["u"] = $usuario;				
 		
 		$this->load->view('topo', $this->dados);
 		$this->load->view('usuarios/editar', $this->dados);
@@ -118,7 +118,7 @@ class Usuarios extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data["usuario"] = $this->db->get_where("usuario", array("id" => $id))->row(0, "Usuario");	
+			$data["u"] = $this->db->get_where("usuario", array("id" => $id))->row(0, "Usuario");	
 			$this->load->view('usuarios/editar', $data);
 		}
 		else
@@ -151,7 +151,7 @@ class Usuarios extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data["usuario"] = $this->db->get_where("usuario", array("id" => $id))->row(0, "Usuario");	
+			$data["u"] = $this->db->get_where("usuario", array("id" => $id))->row(0, "Usuario");	
 			$this->load->view('usuarios/editar', $data);
 		}
 		else
@@ -176,7 +176,7 @@ class Usuarios extends CI_Controller {
 			show_404("usuarios/excluir");			
 		}			
 				
-		$this->dados["usuario"] = $usuario;		
+		$this->dados["u"] = $usuario;		
 				
 		$this->load->helper('form');
 		$this->load->view('topo', $this->dados);
