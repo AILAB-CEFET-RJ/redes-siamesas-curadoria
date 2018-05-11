@@ -29,7 +29,7 @@ class Question extends CI_Model {
 	public function get_question_for_curation($img_id_vqa, $img_id_imagenet, $usuario_id){
 		$this->load->database();
 		$query = $this->db->query("SELECT 
-										q.question_id, q.statement, q.answer, qc.*
+										q.*
 									FROM 
 										question q
 									LEFT JOIN
