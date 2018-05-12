@@ -29,7 +29,10 @@
           <th>Name</th>
           <th>E-mail</th>
           <th>Last Login</th>
-          <th></th>
+          <th>Last Login</th>
+          <?php if($usuario->admin == 1) : ?>
+          <th class="text-right">Pares curados</th>
+          <?php endif; ?>
         </tr>
       </thead>
       <tbody>      	
@@ -55,6 +58,9 @@
                 <a href="<?php echo base_url("usuarios/excluir") . "/" . $u->id;?>" title="Excluir" class="btn btn-default button-delete">Apagar</a>            
             <?php endif; ?>
           </td>
+          <?php if($usuario->admin == 1): ?>
+          <td class="text-right"><?php echo $u->pares_curados();?></td>
+          <?php endif;?>
         </tr>            
         <?php endforeach; ?>   
       </tbody>
