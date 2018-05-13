@@ -66,7 +66,7 @@ class Img_match extends CI_Model
 	}
 
 	function get_random_offset(){
-		$query = $this->db->query("SELECT ROUND(RAND() * (SELECT COUNT(*) FROM annotation)) as offset");		
+		$query = $this->db->query("SELECT ROUND(RAND() * (SELECT COUNT(1) FROM annotation)) as offset");		
 		return $query->first_row()->offset;
 	}
 
