@@ -8,15 +8,11 @@
 </div>
 
 <div class="row" style="text-align: center;">
-  <div class="col-md-6"><h4>Original dataset Image</h4></div>
-  <div class="col-md-6"><h4>Candidate dataset Image</h4></div>
+  <div class="col-md-12"><h4>Candidate dataset Image</h4></div>
 </div>
 
 <div class="row" style="text-align: center;">
-  <div class="col-md-6">
-  	<img width="350" height="299"  src="<?php echo base_url('dataset/vqa/' . $annotationVqa->filename);?>" />
-  </div>
-  <div class="col-md-6">
+  <div class="col-md-12">
   	<img width="350" height="299"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
   </div>
 </div>
