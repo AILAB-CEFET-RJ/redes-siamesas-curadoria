@@ -17,21 +17,25 @@ class Curadoria extends CI_Controller {
 	public function index()	{		
 		$this->load->database();
 		$this->load->model("img_match");
-		if($imgMatch = $this->img_match->get_register_for_curation($this->dados["usuario"]->id))
+		if($imgMatch = $this->img_match->get_next_register_by_distance($this->dados["usuario"]->id))
 		{
-			$this->load->model("annotation");						
-			$annotationImagenet = $this->db->get_where("annotation", array("img_id" => $imgMatch->imagenet_img_id))->row(0, "annotation");
-			// admitindo que se o atributo curation de img_match ainda é 0, então ainda existem perguntas
+			
+			$imgMatch->img_id = str_replace(".JPEG", "", $imgMatch->filename);
+			
 			$this->load->model("question");
-		
-			$this->dados["question"] = $this->question->get_question_for_curation($imgMatch->vqa_img_id, $imgMatch->imagenet_img_id, $this->dados["usuario"]->id);
+			$this->question->id = $imgMatch->question_id;
+			$this->question->img_id = $imgMatch->vqa_img;
+			$this->question->statement = $imgMatch->statement;
+			$this->question->answer = $imgMatch->answer;
+			
+			$this->dados["question"] = $this->question;
 			
 			if($this->dados["question"] === false){
 				die("Question não encontrada");
 				redirect("curadoria/index");	
 			}
 
-			$this->dados['annotationImagenet'] = $annotationImagenet;
+			$this->dados['annotationImagenet'] = $imgMatch;
 
 			$strView = 'curadoria/registrar';
 		}

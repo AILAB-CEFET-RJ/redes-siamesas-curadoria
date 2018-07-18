@@ -40,7 +40,7 @@
   <input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
   <input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
   <input type="hidden" name="annotation_vqa_id" value="<?php echo $question->img_id; ?>" />
-	<input type="hidden" name="imagenet_answer" id="imagenet_answer" value="<?php echo $question->img_id; ?>" />
+	<input type="hidden" name="imagenet_answer" id="imagenet_answer" value="<?php echo $question->answer; ?>" />
   
   <?=form_close();?>
 </div>
