@@ -20,7 +20,9 @@ class Curadoria extends CI_Controller {
 		if($imgMatch = $this->img_match->get_next_register_by_distance($this->dados["usuario"]->id))
 		{
 			
-			$imgMatch->img_id = str_replace(".JPEG", "", $imgMatch->filename);
+			$imgMatch->img_id = $imgMatch->filename;
+			$imgMatch->filename = $imgMatch->filename . ".JPEG";
+
 			
 			$this->load->model("question");
 			$this->question->id = $imgMatch->question_id;
@@ -71,7 +73,7 @@ class Curadoria extends CI_Controller {
 	}
 
 	public function register_match_question(){				
-		$this->registerCuration($this->APPLICABLE);
+		$this->registerCuration($this->APPLICABLE, array());
 	}
 
 
@@ -109,14 +111,15 @@ class Curadoria extends CI_Controller {
 		$this->insertQuestionCuration($vqa_img_id, $imagenet_img_id, $usuario_id, $question_id, $applicable, $answer);
 
 		// atualiza user_curation, se for o caso
-		$this->updateUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id);
+		//$this->updateUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id);
 
 		$this->db->trans_complete();
 
 		/*$this->load->view('topo', $this->dados);
 		$this->load->view($this->db->trans_status() === FALSE ? 'curadoria/fail' : 'curadoria/sucesso');
 		$this->load->view('rodape');*/
-		redirect('curadoria/change_question/' . $vqa_img_id . '/' .  $imagenet_img_id . '/' . $question_id);
+		//redirect('curadoria/change_question/' . $vqa_img_id . '/' .  $imagenet_img_id . '/' . $question_id);
+		redirect('curadoria/');
 	}
 
 	private function insertUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id)

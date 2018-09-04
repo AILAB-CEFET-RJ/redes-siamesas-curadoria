@@ -77,27 +77,24 @@ class Img_match extends CI_Model
 	}
 
 	public function get_next_register_by_distance(){		
-		$query = $this->db->query("SELECT
-										q.question_id, q.statement, q.answer, a.img_id as vqa_img, d.imagenet_img_id as filename
-									FROM
-										distances d
-									INNER JOIN
-										question q
-									ON
-										d.question_id = q.question_id
-									INNER JOIN
-										annotation a on q.img_id = a.img_id
-									LEFT JOIN
+		$query = $this->db->query("select 
+										cd.question_id, cd.statement, cd.answer, cd.vqa_img_id as vqa_img, cd.imagenet_img_id as filename, distance
+									from 
+										calculated_distances cd
+									left join 
 										question_curation qc
-									ON
-										qc.question_id = d.question_id
-									WHERE
-										q.answer_type = 'Yes/No'
-									AND qc.usuario_id IS NULL
-									LIMIT 1");
+									on 
+										cd.question_id = qc.question_id
+									where 
+										distance < 2.5
+									and 
+										qc.usuario_id is null
+									order by
+										distance
+									limit 1");
 		if($query->num_rows() != 0){
 			return $query->row();
-		} else { 		
+		} else { 			
 			return false;
 		}
 	}
