@@ -17,21 +17,27 @@ class Curadoria extends CI_Controller {
 	public function index()	{		
 		$this->load->database();
 		$this->load->model("img_match");
-		if($imgMatch = $this->img_match->get_register_for_curation($this->dados["usuario"]->id))
+		if($imgMatch = $this->img_match->get_next_register_by_distance($this->dados["usuario"]->id))
 		{
-			$this->load->model("annotation");						
-			$annotationImagenet = $this->db->get_where("annotation", array("img_id" => $imgMatch->imagenet_img_id))->row(0, "annotation");
-			// admitindo que se o atributo curation de img_match ainda é 0, então ainda existem perguntas
+			
+			$imgMatch->img_id = $imgMatch->filename;
+			$imgMatch->filename = $imgMatch->filename . ".JPEG";
+
+			
 			$this->load->model("question");
-		
-			$this->dados["question"] = $this->question->get_question_for_curation($imgMatch->vqa_img_id, $imgMatch->imagenet_img_id, $this->dados["usuario"]->id);
+			$this->question->id = $imgMatch->question_id;
+			$this->question->img_id = $imgMatch->vqa_img;
+			$this->question->statement = $imgMatch->statement;
+			$this->question->answer = $imgMatch->answer;
+			
+			$this->dados["question"] = $this->question;
 			
 			if($this->dados["question"] === false){
 				die("Question não encontrada");
 				redirect("curadoria/index");	
 			}
 
-			$this->dados['annotationImagenet'] = $annotationImagenet;
+			$this->dados['annotationImagenet'] = $imgMatch;
 
 			$strView = 'curadoria/registrar';
 		}
@@ -67,7 +73,7 @@ class Curadoria extends CI_Controller {
 	}
 
 	public function register_match_question(){				
-		$this->registerCuration($this->APPLICABLE);
+		$this->registerCuration($this->APPLICABLE, array());
 	}
 
 
@@ -105,14 +111,15 @@ class Curadoria extends CI_Controller {
 		$this->insertQuestionCuration($vqa_img_id, $imagenet_img_id, $usuario_id, $question_id, $applicable, $answer);
 
 		// atualiza user_curation, se for o caso
-		$this->updateUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id);
+		//$this->updateUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id);
 
 		$this->db->trans_complete();
 
 		/*$this->load->view('topo', $this->dados);
 		$this->load->view($this->db->trans_status() === FALSE ? 'curadoria/fail' : 'curadoria/sucesso');
 		$this->load->view('rodape');*/
-		redirect('curadoria/change_question/' . $vqa_img_id . '/' .  $imagenet_img_id . '/' . $question_id);
+		//redirect('curadoria/change_question/' . $vqa_img_id . '/' .  $imagenet_img_id . '/' . $question_id);
+		redirect('curadoria/');
 	}
 
 	private function insertUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id)
