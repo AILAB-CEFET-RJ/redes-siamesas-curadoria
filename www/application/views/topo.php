@@ -51,9 +51,7 @@
         </div>
         <?php if(isset($usuario)) : ?>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">            
-            <li class="<?php echo  $segmento == "annotations" ? "active" : "" ?>"><a href="<?php echo site_url('annotations');?>">Images</a></li>
-            <li class="<?php echo  $segmento == "synsets" ? "active" : "" ?>"><a href="<?php echo site_url('synsets');?>">Synsets</a></li>
+          <ul class="nav navbar-nav">                        
             <li class="<?php echo  $segmento == "curadoria" ? "active" : "" ?>"><a href="<?php echo site_url('curadoria');?>">Curate</a></li>
           <?php if($usuario->admin == 1) { ?>
             <li class="<?php echo  $segmento == "usuarios" ? "active" : "" ?>"><a href="<?php echo site_url('usuarios');?>">Users</a></li>
