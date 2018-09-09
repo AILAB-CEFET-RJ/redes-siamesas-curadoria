@@ -18,7 +18,7 @@
 		<?=form_open('curadoria/register_match_question', array('role' => 'form', "id" => "formAnswer"));?>		  
 			<a href="#" type="button" id="btnYes" class="btn btn btn-success btn-block" style="margin-bottom:5%;padding-top:20px;padding-bottom:20px;font-size:24px">Yes</a>
 			<a href="#" type="button" id="btnNo" class="btn btn btn-danger btn-block" style="margin-bottom:5%;padding-top:20px;padding-bottom:20px;font-size:24px">No</a>
-			<a href="#" type="button" id="btnSkipQuestion" class="btn btn btn-default btn-block" style="padding-top:20px;padding-bottom:20px;font-size:24px" onclick="javascript:location.href='<?=base_url("curadoria/register_no_match_question/$question->img_id/$annotationImagenet->img_id/$question->id")?>'" />Does not apply to this image</a>
+			<a href="#" type="button" id="btnSkipQuestion" class="btn btn btn-default btn-block" style="padding-top:20px;padding-bottom:20px;font-size:24px" onclick="javascript:location.href='<?=site_url("curadoria/register_no_match_question/$question->img_id/$annotationImagenet->img_id/$question->id")?>'" />Does not apply to this image</a>
 						
 			<input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
 			<input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
