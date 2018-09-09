@@ -73,7 +73,7 @@
           </td>
           <td>
             <a href="<?php echo site_url("annotations/details") . "/" . $annotation->img_id;?>">
-                 <img width="128"  src="<?php echo site_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>" />
+                 <img width="128"  src="<?php echo base_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>" />
             </a>
           </td>          
         </tr>            

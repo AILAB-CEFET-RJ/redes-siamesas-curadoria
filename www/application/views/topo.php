@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand site-id" href="<?php echo site_url();?>">
-            <img  class="site-logo" src="<?php echo site_url('assets/img/icons/color_swatch.png');?>" width="28" alt="logo invest" title="Curation" />
+            <img  class="site-logo" src="<?php echo base_url('assets/img/icons/color_swatch.png');?>" width="28" alt="logo invest" title="Curation" />
             <span class="site-name">Images Curation</span>
           </a>
         </div>

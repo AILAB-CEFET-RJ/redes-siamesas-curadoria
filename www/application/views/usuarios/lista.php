@@ -19,7 +19,7 @@
 
 <div class="row">
 
-<img src="<?php echo site_url("assets/img/icons/user_gray.png"); ?>" /> = <em>admin</em>
+<img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" /> = <em>admin</em>
 <hr />
 <table class="table table-striped">
       <thead>
@@ -41,7 +41,7 @@
           <td><?php echo $u->id; ?></td>
           <td>
             <?php if($u->admin == 1){ ?>
-               <img src="<?php echo site_url("assets/img/icons/user_gray.png"); ?>" />
+               <img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" />
             <?php } else { ?>
                 --
             <?php } ?>

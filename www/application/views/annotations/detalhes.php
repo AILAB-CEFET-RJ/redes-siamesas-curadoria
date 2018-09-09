@@ -61,7 +61,7 @@
 
 
       <div class="form-group">	    
-      <img src="<?php echo site_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>"
+      <img src="<?php echo base_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>"
 	  </div> 
 </div>
 <hr />

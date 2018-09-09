@@ -1,8 +1,8 @@
 
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('curadoria')?>">Curation</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('curadoria')?>">Curation</a></li>
 	  <li class="active">Register Annotation</li>  
 	</ol>
 </div>
@@ -34,21 +34,21 @@
   <div class="col-md-4 col-md-offset-1">
 	<a href="#" type="button" id="btnYes" class="btn btn btn-success btn-block">Yes</a>
 	<a href="#" type="button" id="btnNo" class="btn btn btn-danger btn-block">No</a>
-	<a href="#" type="button" id="btnSkipQuestion" class="btn btn btn-default btn-block" onclick="javascript:location.href='<?=base_url("curadoria/register_no_match_question/$question->img_id/$annotationImagenet->img_id/$question->id")?>'" />Does not apply to this image</a>
+	<a href="#" type="button" id="btnSkipQuestion" class="btn btn btn-default btn-block" onclick="javascript:location.href='<?=site_url("curadoria/register_no_match_question/$question->img_id/$annotationImagenet->img_id/$question->id")?>'" />Does not apply to this image</a>
   </div>
   
   <input type="hidden" name="question_id" value="<?php echo $question->id; ?>" />
   <input type="hidden" name="annotation_imagenet_id" value="<?php echo $annotationImagenet->img_id; ?>" />
   <input type="hidden" name="annotation_vqa_id" value="<?php echo $question->img_id; ?>" />
-	<input type="hidden" name="imagenet_answer" id="imagenet_answer" value="<?php echo $question->img_id; ?>" />
+	<input type="hidden" name="imagenet_answer" id="imagenet_answer" value="<?php echo $question->answer; ?>" />
   
   <?=form_close();?>
 </div>
 
 <hr />
 <div class="row text-center">	
-	<a onclick="javascript:location.href='<?=base_url("curadoria")?>'" type="button" style="width:25%" class="btn btn btn-primary  btn-lg">Skip Image</a>
-	<a onclick="javascript:location.href='<?=base_url("curadoria/change_question/$question->img_id/$annotationImagenet->img_id/$question->id")?>'" href="<?=base_url("annotations/index")?>" type="button" style="width:25%" class="btn btn btn-primary  btn-lg">Skip Question</a>	
+	<a onclick="javascript:location.href='<?=site_url("curadoria")?>'" type="button" style="width:25%" class="btn btn btn-primary  btn-lg">Skip Image</a>
+	<a onclick="javascript:location.href='<?=site_url("curadoria/change_question/$question->img_id/$annotationImagenet->img_id/$question->id")?>'" href="<?=site_url("annotations/index")?>" type="button" style="width:25%" class="btn btn btn-primary  btn-lg">Skip Question</a>	
 </div>
 
 <script type="text/javascript">
