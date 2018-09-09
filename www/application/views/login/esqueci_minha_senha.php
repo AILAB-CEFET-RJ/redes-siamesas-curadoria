@@ -19,6 +19,6 @@
    </div> 
    <button class="btn btn-lg btn-primary btn-block" type="submit">Recuperar Senha</button>
    <br />
-   <a href="<?php echo base_url("login");?>">Voltar para Login</a>
+   <a href="<?php echo site_url("login");?>">Voltar para Login</a>
   <?=form_close();?>
 </div>

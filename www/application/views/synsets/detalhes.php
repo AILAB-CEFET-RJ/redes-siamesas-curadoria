@@ -1,7 +1,7 @@
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('synsets')?>">Synsets</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('synsets')?>">Synsets</a></li>
 	  <li class="active">Detalhes</li>  
 	</ol>
 </div>
@@ -39,8 +39,8 @@
 				<?php foreach($annotations as $annotation): ?>
 
 					<td>
-						<a href="<?php echo base_url("annotations/details") . "/" . $annotation->img_id;?>">
-							<img width="128" heigth="128" src="<?php echo base_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>" />
+						<a href="<?php echo site_url("annotations/details") . "/" . $annotation->img_id;?>">
+							<img width="128" heigth="128" src="<?php echo site_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>" />
 						</a>
 					</td>
 

@@ -1,8 +1,8 @@
 
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('usuarios')?>">Users</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('usuarios')?>">Users</a></li>
 	  <li class="active">Delete User</li>  
 	</ol>
 </div>
@@ -27,7 +27,7 @@
     	<span><?=$u->data_ultimo_login?></span>
   	</div>
   	
-  	<a href="<?=base_url("usuarios/apagar/" . $u->id);?>" type="submit" class="btn btn-danger button-delete">Delete</a>
-    <a href="<?=base_url("usuarios/index")?>" type="button" class="btn btn-primary button-listar">Back to List</a>
+  	<a href="<?=site_url("usuarios/apagar/" . $u->id);?>" type="submit" class="btn btn-danger button-delete">Delete</a>
+    <a href="<?=site_url("usuarios/index")?>" type="button" class="btn btn-primary button-listar">Back to List</a>
 	
 </div>

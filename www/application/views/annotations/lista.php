@@ -1,6 +1,6 @@
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
 	  <li class="active">Anotações</li>  
 	</ol>
 </div>
@@ -44,12 +44,12 @@
       	<?php foreach($annotations as $annotation): ?>
         <tr>          
           <td>
-          	<a href="<?php echo base_url("annotations/details") . "/" . $annotation->img_id;?>">
+          	<a href="<?php echo site_url("annotations/details") . "/" . $annotation->img_id;?>">
           		<?php echo trim($annotation->img_id); ?>
           	</a>          		
           </td>  
            <td>
-            <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($annotation->wnid);?>">
+            <a href="<?php echo site_url("annotations/resultado_busca") . "?q=" . trim($annotation->wnid);?>">
               <?php echo trim($annotation->wnid); ?>
             </a>
           </td>
@@ -60,9 +60,9 @@
 
                 <?php foreach($attr as $k => $w): ?>                  
                     <?php if( (sizeof($attr) -1) > $k ): ?>
-                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>,&nbsp;
+                      <a href="<?php echo site_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>,&nbsp;
                     <?php else:?>
-                      <a href="<?php echo base_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>
+                      <a href="<?php echo site_url("annotations/resultado_busca") . "?q=" . trim($w);?>"><?=$w?></a>
                     <?php endif; ?> 
                 <?php endforeach; ?> 
                 
@@ -72,8 +72,8 @@
               <?php echo trim($annotation->dataset_source); ?>
           </td>
           <td>
-            <a href="<?php echo base_url("annotations/details") . "/" . $annotation->img_id;?>">
-                 <img width="128"  src="<?php echo base_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>" />
+            <a href="<?php echo site_url("annotations/details") . "/" . $annotation->img_id;?>">
+                 <img width="128"  src="<?php echo site_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>" />
             </a>
           </td>          
         </tr>            

@@ -5,5 +5,5 @@
   	<h1>Success!</h1>
   	<p>Your password has been updated.</p>
   </div>
-  <p><a class="btn btn-primary btn-lg" role="button" href="<?=base_url('usuarios/index')?>">Back to List</a></p>
+  <p><a class="btn btn-primary btn-lg" role="button" href="<?=site_url('usuarios/index')?>">Back to List</a></p>
 </div>

@@ -1,8 +1,8 @@
 
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('leitores')?>">Users</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('leitores')?>">Users</a></li>
 	  <li class="active">Create User</li>  
 	</ol>
 </div>
@@ -43,6 +43,6 @@
 	  </div>	  
 	  <hr />
 	  <button type="submit" class="btn btn-primary button-salvar">Save</button>
-	  <button type="button" onclick="javascript:location.href='<?=base_url("usuarios/index")?>'" class="btn btn-danger">Cancel</button>
+	  <button type="button" onclick="javascript:location.href='<?=site_url("usuarios/index")?>'" class="btn btn-danger">Cancel</button>
 	<?=form_close();?>
 </div>

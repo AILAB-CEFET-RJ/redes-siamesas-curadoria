@@ -19,7 +19,7 @@
 	  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 	  <br />
 	  <label>
-	      <a href="<?php echo base_url("login/esqueci_minha_senha");?>">Esqueci minha senha</a>
+	      <a href="<?php echo site_url("login/esqueci_minha_senha");?>">Esqueci minha senha</a>
 	  </label>
 	<?=form_close();?>
 </div>

@@ -1,6 +1,6 @@
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
 	  <li class="active">Synsets</li>  
 	</ol>
 </div>
@@ -50,7 +50,7 @@
       	<?php foreach($synsets as $synset): ?>
         <tr>          
           <td>
-          	<a href="<?php echo base_url("synsets/detalhes") . "/" . $synset->wnid;?>">
+          	<a href="<?php echo site_url("synsets/detalhes") . "/" . $synset->wnid;?>">
           		<?php echo trim($synset->wnid); ?>
           	</a>          		
           </td>  
@@ -58,7 +58,7 @@
               <?php echo trim($synset->words); ?>
           </td> 
            <td class="text-center">
-           <a href="<?php echo base_url("synsets/detalhes") . "/" . $synset->wnid;?>">
+           <a href="<?php echo site_url("synsets/detalhes") . "/" . $synset->wnid;?>">
           		<?php echo trim($synset->qtde); ?>
           	</a>             
           </td>     

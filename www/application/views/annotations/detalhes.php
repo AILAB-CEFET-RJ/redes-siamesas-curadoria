@@ -1,7 +1,7 @@
 <div class='row'>
 	<ol class="breadcrumb">
-	  <li><a href="<?=base_url('home')?>">Home</a></li>
-	  <li><a href="<?=base_url('annotations')?>">Image Annotattions</a></li>
+	  <li><a href="<?=site_url('home')?>">Home</a></li>
+	  <li><a href="<?=site_url('annotations')?>">Image Annotattions</a></li>
 	  <li class="active">Details</li>  
 	</ol>
 </div>
@@ -61,8 +61,8 @@
 
 
       <div class="form-group">	    
-      <img src="<?php echo base_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>"
+      <img src="<?php echo site_url('dataset/' . $annotation->dataset_source . '/' . $annotation->filename);?>"
 	  </div> 
 </div>
 <hr />
-<a href="<?=base_url("annotations/index")?>" type="button" class="btn btn-primary button-listar">Back to List</a>
+<a href="<?=site_url("annotations/index")?>" type="button" class="btn btn-primary button-listar">Back to List</a>
