@@ -85,10 +85,12 @@ class Img_match extends CI_Model
 										question_curation qc
 									on 
 										cd.question_id = qc.question_id
-									where 
-										distance < 2.5
 									and 
+                                                                               cd.imagenet_img_id = qc.imagenet_img_id
+									where 
 										qc.usuario_id is null
+									and
+										cd.distance < 2.5
 									order by
 										distance
 									limit 1");
