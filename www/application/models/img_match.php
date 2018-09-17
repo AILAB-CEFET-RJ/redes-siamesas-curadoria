@@ -86,9 +86,9 @@ class Img_match extends CI_Model
 									on 
 										cd.question_id = qc.question_id
 									and 
-                                                                               cd.imagenet_img_id = qc.imagenet_img_id
+                                        cd.imagenet_img_id = qc.imagenet_img_id
 									where 
-										qc.usuario_id is null
+										qc.usuario_id is null or qc.usuario <> 1
 									and
 										cd.distance < 2.5
 									order by
