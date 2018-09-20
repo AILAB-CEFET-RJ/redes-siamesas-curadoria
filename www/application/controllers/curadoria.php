@@ -141,16 +141,21 @@ class Curadoria extends CI_Controller {
 
 	private function insertQuestionCuration($vqa_img_id, $imagenet_img_id, $usuario_id, $question_id, $applicable, $answer)
 	{
-		$this->load->model("question_curation");
-		$this->dados = array(
-			"vqa_img_id" => $vqa_img_id,
-			"imagenet_img_id" => $imagenet_img_id,
-			"question_id" => $question_id,
-			"usuario_id" => $usuario_id,
-			"answer" => $answer,
-			"applicable" => $applicable
-		);
-		$this->db->insert('question_curation', $this->dados);
+		try {
+		
+			$this->load->model("question_curation");
+			$this->dados = array(
+				"vqa_img_id" => $vqa_img_id,
+				"imagenet_img_id" => $imagenet_img_id,
+				"question_id" => $question_id,
+				"usuario_id" => $usuario_id,
+				"answer" => $answer,
+				"applicable" => $applicable
+			);
+			$this->db->insert('question_curation', $this->dados);
+		} catch(Exception $e) {
+
+		}
 	}
 
 	private function updateUserCuration($vqa_img_id, $imagenet_img_id, $usuario_id)

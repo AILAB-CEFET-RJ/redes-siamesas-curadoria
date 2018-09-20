@@ -28,7 +28,7 @@ class Usuarios extends CI_Controller {
 		
 		$this->dados["paginacao"] = $this->pagination->create_links(); 
 		
-		$this->db->limit(10, $pagina * 10);
+		$this->db->limit(50, $pagina * 50);
 		$this->dados["usuarios"] = $this->db->get("usuario")->result("Usuario");
 		
 		$this->dados["q"] = "";

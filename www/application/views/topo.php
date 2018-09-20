@@ -53,6 +53,7 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">                        
             <li class="<?php echo  $segmento == "curadoria" ? "active" : "" ?>"><a href="<?php echo site_url('curadoria');?>">Curate</a></li>
+            <li class="<?php echo  $segmento == "tutorial" ? "active" : "" ?>"><a href="<?php echo site_url('tutorial');?>">Tutorial</a></li>
           <?php if($usuario->admin == 1) { ?>
             <li class="<?php echo  $segmento == "usuarios" ? "active" : "" ?>"><a href="<?php echo site_url('usuarios');?>">Users</a></li>
           <?php } ?>            
