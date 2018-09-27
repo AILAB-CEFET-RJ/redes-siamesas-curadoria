@@ -15,7 +15,12 @@ class Login extends CI_Controller {
 	public function index()	{		
 		
 		if( $this->usuario != null ){
-			redirect("curadoria");
+			if($this->usuario->data_ultimo_login == null){
+				redirect("tutorial");
+			} else {
+				redirect("curadoria");
+			}
+			
 		}
 
 		$this->load->helper("form");
