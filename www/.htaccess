@@ -1,3 +1,6 @@
 RewriteEngine on
+
 RewriteCond $1 !^(index\.php|assets|dataset|vqa|imagenet|robots\.txt)
-RewriteRule ^(.*)$ /index.php/$1 [L]
+RewriteRule ^([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_\s]+)[\/]?(.+)?$ index.php?1=$1&2=$2&3=$3 [NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_]+)/([a-zA-Z0-9\-\_]+)?$ index.php?1=$1&2=$2 [NC,L]
+RewriteRule ^([a-zA-Z0-9\-\_]{1,})?$ index.php?1=$1 [NC,L]

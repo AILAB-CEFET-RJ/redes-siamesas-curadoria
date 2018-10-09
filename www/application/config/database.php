@@ -50,8 +50,8 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'mysql';
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'secret';
-$db['default']['database'] = 'imagenet';
+$db['default']['password'] = '';
+$db['default']['database'] = 'ramonsilva03';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
