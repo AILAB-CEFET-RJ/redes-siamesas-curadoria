@@ -13,7 +13,7 @@ class Login extends CI_Controller {
 	} 
 
 	public function index()	{		
-		
+			
 		if( $this->usuario != null ){
 			if($this->usuario->data_ultimo_login == null){
 				redirect("tutorial");
@@ -28,6 +28,11 @@ class Login extends CI_Controller {
 		$this->load->view('topo');
 		$this->load->view('login/formulario');
 		$this->load->view('rodape');
+		/*	
+		$this->load->view('topo');
+		$this->load->view('tapume');
+		$this->load->view('rodape');
+		*/
 	}
 	
 	public function autentica(){

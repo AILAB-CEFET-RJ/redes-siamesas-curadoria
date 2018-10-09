@@ -10,11 +10,11 @@
 <div class="row" style="text-align: center;">
   <div class="col-sm-12 col-md-6">
 		<h4>Candidate Image</h4>
-		<img width="450" height="399"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
+		<img width="399" height="399"  src="<?php echo base_url('dataset/imagenet/' . $annotationImagenet->filename);?>" />
 	</div>
 	
 	<div class="col-sm-12 col-md-6">
-		<h1 style="margin-bottom:15%">Question: <?php echo $question->statement?></h1>
+		<h1 style="margin-bottom:15%"><?php echo $question->statement?></h1>
 		<?=form_open('curadoria/register_match_question', array('role' => 'form', "id" => "formAnswer"));?>		  
 			<a href="#" type="button" id="btnYes" class="btn btn btn-success btn-block" style="margin-bottom:5%;padding-top:20px;padding-bottom:20px;font-size:24px">Yes</a>
 			<a href="#" type="button" id="btnNo" class="btn btn btn-danger btn-block" style="margin-bottom:5%;padding-top:20px;padding-bottom:20px;font-size:24px">No</a>

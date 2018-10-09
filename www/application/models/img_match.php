@@ -72,26 +72,25 @@ class Img_match extends CI_Model
 
 
 	function get_distance_random_offset(){
-		$query = $this->db->query("SELECT ROUND(RAND() * (SELECT COUNT(1) FROM distances)) as offset");		
+		$query = $this->db->query("SELECT ROUND(RAND() * (SELECT COUNT(1) FROM calculated_distances where distance < 4.5)) as offset");		
 		return $query->first_row()->offset;
 	}
 
-	public function get_next_register_by_distance(){		
-		$query = $this->db->query("select 
-										cd.question_id, cd.statement, cd.answer, cd.vqa_img_id as vqa_img, cd.imagenet_img_id as filename, distance
-									from 
-										calculated_distances cd
-									left join 
-										question_curation qc
-									on 
-										cd.question_id = qc.question_id
-									where 
-										distance < 5
-									and 
-										qc.usuario_id is null
-									order by
-										distance
-									limit 1");
+	public function get_next_register_by_distance($usuario_id){		
+		$query = $this->db->query("select
+						d.question_id, d.statement, d.answer, d.filename, d.distance
+				from
+						distances d
+				left join
+						question_curation qc
+				on
+						d.question_id = qc.question_id
+				and
+				   		d.filename = qc.imagenet_img_id
+				where
+						qc.usuario_id is null or qc.usuario_id <> $usuario_id
+				limit 1"); 
+
 		if($query->num_rows() != 0){
 			return $query->row();
 		} else { 			

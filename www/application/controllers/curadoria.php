@@ -26,7 +26,7 @@ class Curadoria extends CI_Controller {
 			
 			$this->load->model("question");
 			$this->question->id = $imgMatch->question_id;
-			$this->question->img_id = $imgMatch->vqa_img;
+			//$this->question->img_id = $imgMatch->vqa_img;
 			$this->question->statement = $imgMatch->statement;
 			$this->question->answer = $imgMatch->answer;
 			

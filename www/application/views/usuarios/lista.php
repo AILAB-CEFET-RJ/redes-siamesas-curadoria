@@ -7,7 +7,7 @@
 
 <div class='row'>
 	<?=form_open('usuarios/resultado_busca', array('role' => 'form', 'class' => 'form-inline', 'method' => 'get'));?>
-	  <div class="form-group">	   
+	  <div class="form-group" class="col-sm-8">   
 	    <input type="search" class="form-control campo-busca" id="q" value="<?=$q?>" placeholder="digite o nome ou o email" name="q">	  	
 	  </div>
 	  <button type="submit" class="btn btn-default button-pesquisar">Search</button>
@@ -25,11 +25,11 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Admin</th>
+          <th class="hidden-sm hidden-xs">Admin</th>
           <th>Name</th>
-          <th>E-mail</th>
-          <th>Last Login</th>
-          <th>Last Login</th>
+          <th class="hidden-sm hidden-xs">E-mail</th>
+          <th class="hidden-sm hidden-xs">Last Login</th>
+          <th class="hidden-sm hidden-xs">Last Login</th>
           <?php if($usuario->admin == 1) : ?>
           <th class="text-right">Pares curados</th>
           <?php endif; ?>
@@ -39,8 +39,8 @@
       	<?php foreach($usuarios as $u): ?>
         <tr>        
           <td><?php echo $u->id; ?></td>
-          <td>
-            <?php if($u->admin == 1){ ?>
+          <td class="hidden-sm hidden-xs">
+           <?php if($u->admin == 1){ ?>
                <img src="<?php echo base_url("assets/img/icons/user_gray.png"); ?>" />
             <?php } else { ?>
                 --
@@ -51,9 +51,9 @@
             	<?php echo $u->nome; ?>             
           	</a>          		
           </td>
-          <td><?php echo $u->email; ?></td>
-          <td><?php echo $u->data_ultimo_login; ?></td>
-          <td>
+          <td class="hidden-sm hidden-xs"><?php echo $u->email; ?></td>
+          <td class="hidden-sm hidden-xs"><?php echo $u->data_ultimo_login; ?></td>
+          <td class="hidden-sm hidden-xs">
           	<?php if($usuario->id != $u->id) : ?>
                 <a href="<?php echo site_url("usuarios/excluir") . "/" . $u->id;?>" title="Excluir" class="btn btn-default button-delete">Apagar</a>            
             <?php endif; ?>
